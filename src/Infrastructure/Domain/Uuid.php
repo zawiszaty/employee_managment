@@ -5,7 +5,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Domain;
 
-
+/**
+ * @codeCoverageIgnore
+ */
 class Uuid
 {
     private string $id;

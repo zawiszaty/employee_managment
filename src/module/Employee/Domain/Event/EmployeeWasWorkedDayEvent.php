@@ -9,6 +9,9 @@ use App\Infrastructure\Domain\Event;
 use App\Infrastructure\Domain\EventId;
 use App\module\Employee\Domain\Entity\WorkedDay;
 
+/**
+ * @codeCoverageIgnore
+ */
 class EmployeeWasWorkedDayEvent implements Event
 {
     private EventId $id;

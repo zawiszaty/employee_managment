@@ -9,6 +9,9 @@ use App\Infrastructure\Domain\Event;
 use App\Infrastructure\Domain\EventId;
 use App\module\Employee\Domain\ValueObject\Commission;
 
+/**
+ * @codeCoverageIgnore
+ */
 class EmployeeWasSaleItemEvent implements Event
 {
     private EventId $id;

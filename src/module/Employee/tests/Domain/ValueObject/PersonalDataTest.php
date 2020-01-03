@@ -8,6 +8,9 @@ use App\Infrastructure\Domain\DomainException;
 use App\module\Employee\Domain\ValueObject\PersonalData;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class PersonalDataTest extends TestCase
 {
     const ADDRESS    = 'ul. Jana Z Kolna 11, Gdańsk';

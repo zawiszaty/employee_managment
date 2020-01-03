@@ -33,9 +33,4 @@ abstract class InMemoryRepository
         $this->events = array_merge($this->events, $aggregateRoot->getUncommittedEvents());
         $aggregateRoot->commitEvents();
     }
-
-    public function getEvents(): array
-    {
-        return $this->events;
-    }
 }

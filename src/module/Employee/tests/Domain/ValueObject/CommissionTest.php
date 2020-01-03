@@ -8,6 +8,9 @@ use App\Infrastructure\Domain\DomainException;
 use App\module\Employee\Domain\ValueObject\Commission;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class CommissionTest extends TestCase
 {
     private const COMMISSION = 2.5;

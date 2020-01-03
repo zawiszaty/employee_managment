@@ -81,24 +81,4 @@ final class Employee extends AggregateRoot
             $workedDay,
         ));
     }
-
-    public function getId(): AggregateRootId
-    {
-        return $this->id;
-    }
-
-    public function getPersonalData(): PersonalData
-    {
-        return $this->personalData;
-    }
-
-    public function getRemunerationCalculationWay(): RemunerationCalculationWay
-    {
-        return $this->remunerationCalculationWay;
-    }
-
-    public function getSalary(): Salary
-    {
-        return $this->salary;
-    }
 }

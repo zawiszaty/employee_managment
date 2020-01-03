@@ -10,6 +10,9 @@ use App\Infrastructure\Domain\EventId;
 use App\module\Employee\Domain\ValueObject\PersonalData;
 use App\module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class EmployeeWasCreatedEvent implements Event
 {
     private EventId $id;

@@ -12,6 +12,9 @@ use App\module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\module\Employee\Domain\ValueObject\Salary;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @codeCoverageIgnore
+ */
 class EmployeeTest extends TestCase
 {
     public function testItCreateEmployee(): void
