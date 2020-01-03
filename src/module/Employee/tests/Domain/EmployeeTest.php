@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\Domain;
 
+use App\Infrastructure\Domain\DomainException;
 use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
 use App\module\Employee\Domain\Event\EmployeeWasSaleItemEvent;
 use App\module\Employee\Domain\ValueObject\Commission;
@@ -16,6 +17,7 @@ class EmployeeTest extends TestCase
 {
     public function testItCreateEmployee(): void
     {
+        throw new DomainException('test');
         $employee = Employee::create(
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::HOURLY(),
