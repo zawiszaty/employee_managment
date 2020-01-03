@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\tests;
 
-
 use App\Infrastructure\Domain\AggregateRootId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
