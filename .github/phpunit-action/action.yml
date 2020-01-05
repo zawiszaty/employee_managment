@@ -1,5 +1,0 @@
-name: 'phpunit'
-description: 'run phpunit'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'

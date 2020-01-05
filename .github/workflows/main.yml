@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: PHPUnit and raport
-        uses: ./.github/phpunit-action
-      - name: test
+      - name: composer
+        run: composer install
+      - name: test and raport
         run: ./vendor/bin/phpunit
