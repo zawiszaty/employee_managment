@@ -8,9 +8,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - uses: ./github/phpunit-action
-      - name: Hello world action step
-        id: hello
-        uses: actions/phpunit-actionn@v1
         with:
           coveralls_id: 'Mona the Octocat'
       - name: Get the output time
