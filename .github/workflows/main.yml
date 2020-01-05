@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - uses: ./github/phpunit-action
+      - uses: ./.github/phpunit-action
         with:
           coveralls_id: 'Mona the Octocat'
       - name: Get the output time
