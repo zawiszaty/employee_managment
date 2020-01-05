@@ -10,4 +10,4 @@ jobs:
       - name: composer
         run: composer install
       - name: test and raport
-        run: ./vendor/bin/phpunit
+        run: composer run-script test
