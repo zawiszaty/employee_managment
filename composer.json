@@ -30,6 +30,6 @@
         }
     ],
     "scripts": {
-        "test": "vendor/bin/phpunit && vendor/bin/roave-no-leaks"
+        "test": "ls && vendor/bin/phpunit && vendor/bin/roave-no-leaks"
     }
 }
