@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\module\Employee\tests\Domain\ValueObject;
 
 use App\Infrastructure\Domain\DomainException;
@@ -16,7 +18,7 @@ class SalaryTest extends TestCase
     public function testItCreateSalary(): void
     {
         $salary = Salary::createFromFloat(self::SALARY);
-        $this->assertSame(self::SALARY,$salary->getAmount());
+        $this->assertSame(self::SALARY, $salary->getAmount());
     }
 
     public function testItCreateValidateNegativeAmount(): void

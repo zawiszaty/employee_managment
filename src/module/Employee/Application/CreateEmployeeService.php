@@ -25,13 +25,12 @@ final class CreateEmployeeService
         string $address,
         string $remunerationCalculationWay,
         float $salary
-    ): void
-    {
+    ): void {
         $employee = Employee::create(
             PersonalData::createFromString($firstName, $lastName, $address),
             new RemunerationCalculationWay($remunerationCalculationWay),
             Salary::createFromFloat($salary),
-            );
+        );
         $this->employeeRepository->apply($employee);
         $this->employeeRepository->save();
     }

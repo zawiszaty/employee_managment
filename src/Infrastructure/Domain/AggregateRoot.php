@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\Domain;
-
 
 abstract class AggregateRoot
 {
+    /** @var array<Event> */
     private array $events;
 
     public function record(Event $event): void
@@ -20,6 +19,9 @@ abstract class AggregateRoot
         $this->events = [];
     }
 
+    /**
+     * @return array<Event>
+     */
     public function getUncommittedEvents(): array
     {
         return $this->events;

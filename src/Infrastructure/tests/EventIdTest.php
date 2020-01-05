@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\tests;
-
 
 use App\Infrastructure\Domain\EventId;
 use PHPUnit\Framework\TestCase;

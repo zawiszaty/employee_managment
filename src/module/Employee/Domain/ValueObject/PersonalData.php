@@ -17,8 +17,8 @@ final class PersonalData
     private function __construct(string $firstName, string $lastName, string $address)
     {
         $this->firstName = $firstName;
-        $this->lastName  = $lastName;
-        $this->address   = $address;
+        $this->lastName = $lastName;
+        $this->address = $address;
     }
 
     public static function createFromString(string $firstName, string $lastName, string $address): self

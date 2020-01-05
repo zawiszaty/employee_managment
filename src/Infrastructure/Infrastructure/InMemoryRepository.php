@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\Infrastructure;
-
 
 use App\Infrastructure\Domain\AggregateRoot;
 use App\Infrastructure\Domain\EventDispatcher;

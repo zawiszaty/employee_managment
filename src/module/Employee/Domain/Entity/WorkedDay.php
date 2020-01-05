@@ -7,7 +7,7 @@ namespace App\module\Employee\Domain\Entity;
 use App\Infrastructure\Domain\Uuid;
 use DateTimeImmutable;
 
-class WorkedDay
+final class WorkedDay
 {
     private Uuid $id;
 
@@ -19,8 +19,7 @@ class WorkedDay
         Uuid $id,
         DateTimeImmutable $time,
         int $hoursAmount
-    )
-    {
+    ) {
         $this->id = $id;
         $this->time = $time;
         $this->hoursAmount = $hoursAmount;

@@ -24,8 +24,10 @@ final class Employee extends AggregateRoot
 
     private RemunerationCalculationWay $remunerationCalculationWay;
 
+    /** @var array<Commission> */
     private array $commissions = [];
 
+    /** @var array<WorkedDay> */
     private array $workedDays = [];
 
     private Salary $salary;
@@ -34,8 +36,7 @@ final class Employee extends AggregateRoot
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    )
-    {
+    ) {
         $this->id = AggregateRootId::generate();
         $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
@@ -46,8 +47,7 @@ final class Employee extends AggregateRoot
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    ): self
-    {
+    ): self {
         $employee = new static(
             $personalData,
             $remunerationCalculationWay,

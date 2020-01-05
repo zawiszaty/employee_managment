@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Domain\ValueObject;
 
 use App\Infrastructure\Domain\Assertion\Assertion;
 
-class Salary
+final class Salary
 {
     private float $amount;
 
@@ -19,6 +18,7 @@ class Salary
     public static function createFromFloat(float $amount): self
     {
         Assertion::greaterThan($amount, 0);
+
         return new static($amount);
     }
 

@@ -13,9 +13,9 @@ use PHPUnit\Framework\TestCase;
  */
 final class PersonalDataTest extends TestCase
 {
-    const ADDRESS    = 'ul. Jana Z Kolna 11, Gdańsk';
+    const ADDRESS = 'ul. Jana Z Kolna 11, Gdańsk';
     const FIRST_NAME = 'Jan';
-    const LAST_NAME  = 'Testowy';
+    const LAST_NAME = 'Testowy';
 
     public function testItCreatePersonalData(): void
     {

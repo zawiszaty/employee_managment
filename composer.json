@@ -8,12 +8,15 @@
     "require-dev": {
         "phpunit/phpunit": "^8",
         "roave/security-advisories": "dev-master",
-        "phpunit/php-code-coverage": "^7.0"
+        "phpunit/php-code-coverage": "^7.0",
+        "roave/no-leaks": "^1.1",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "require": {
         "ramsey/uuid": "^3.9",
         "beberlei/assert": "^3.2",
-        "myclabs/php-enum": "^1.7"
+        "myclabs/php-enum": "^1.7",
+        "phpstan/phpstan": "^0.12.3"
     },
     "autoload": {
         "psr-4": {
@@ -25,5 +28,8 @@
             "name": "zawiszaty",
             "email": "ZawiszaCzarny52@gmail.com"
         }
-    ]
+    ],
+    "scripts": {
+        "test": "vendor/bin/phpunit && vendor/bin/roave-no-leaks"
+    }
 }

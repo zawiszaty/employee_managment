@@ -1,0 +1,31 @@
+#!/bin/bash
+
+STAGED_PHP_FILES=$(git diff --cached --name-only --diff-filter=ACM "*.php")
+
+FAIL=0
+PHPSTAN_RES=0
+
+# Skip for merge commits
+if [[ $(git rev-parse -q --verify MERGE_HEAD) ]]; then
+  exit 0
+fi
+
+  echo -e "\x1B[32mPHPStan:\n\x1B[0m"
+  vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=-1 --autoload-file=vendor/autoload.php --no-progress $STAGED_PHP_FILES
+  vendor/bin/php-cs-fixer fix --allow-risky=yes $STAGED_PHP_FILES
+  PHPSTAN_RES=$?
+
+
+if ! [[ $PHPSTAN_RES -eq 0 ]]; then
+  FAIL=1
+  echo -e "\x1B[31m* PHPStan detected potential issues. Please investigate them before you push code to remote repository."
+  echo -e "\x1B[31m  Use the following command to run PHPStan again:"
+  echo -e "\x1B[90m  $ vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=-1 --autoload-file=vendor/autoload.php \$(git diff HEAD^ HEAD --diff-filter=ACM --name-only \"*.php\")"
+  echo -e "\x1B[0m"
+fi
+if [[ $FAIL -eq 1 ]]; then
+  echo -e "\x1B[32mRegardless of the above warnings your commit was added successfully."
+  echo -e "\x1B[0m"
+fi
+
+exit 0

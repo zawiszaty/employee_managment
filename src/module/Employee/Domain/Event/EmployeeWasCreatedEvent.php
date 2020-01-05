@@ -29,8 +29,7 @@ final class EmployeeWasCreatedEvent implements Event
         AggregateRootId $aggregateRootId,
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay
-    )
-    {
+    ) {
         $this->eventId = EventId::generate();
         $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
