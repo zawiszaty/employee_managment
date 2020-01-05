@@ -17,4 +17,4 @@ jobs:
       - run: composer install
       - run: composer test
       - name: Coveralls
-        run: ./vendor/bin/php-coveralls -v
+        run: export COVERALLS_RUN_LOCALLY=1 && export COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }} && ./vendor/bin/php-coveralls -v
