@@ -1,8 +1,7 @@
 on: [push]
 
 jobs:
-  phpunit:
-    build:
+  build:
       strategy:
         matrix:
           operating-system: [ubuntu-latest]
