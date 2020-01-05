@@ -7,9 +7,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: test
+      - name: PHPUnit and raport
         uses: ./.github/phpunit-action
-      - name: test2
-        run: ./vendor/bin/phpunit
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"

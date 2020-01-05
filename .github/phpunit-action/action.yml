@@ -1,14 +1,5 @@
 name: 'phpunit'
 description: 'run phpunit'
-inputs:
-  coveralls_id:
-    description: 'Coverrals id'
-    required: true
-outputs:
-  time:
-    description: 'The time we greeted you'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.coveralls_id }}
