@@ -1,5 +1,3 @@
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/zawiszaty/employee_managment/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/zawiszaty/employee_managment/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/zawiszaty/employee_managment/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/zawiszaty/employee_managment/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/zawiszaty/employee_managment/badges/build.png?b=master)](https://scrutinizer-ci.com/g/zawiszaty/employee_managment/build-status/master)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/zawiszaty/employee_managment/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+![[](https://github.com/zawiszaty/employee_managment/workflows/PHP%20Composer/badge.svg)](https://github.com/zawiszaty/employee_managment/workflows/PHP%20Composer/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/zawiszaty/employee_managment/badge.svg?branch=master)](https://coveralls.io/github/zawiszaty/employee_managment?branch=master)
 # employee_managment
