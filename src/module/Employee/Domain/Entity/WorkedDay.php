@@ -7,6 +7,9 @@ namespace App\module\Employee\Domain\Entity;
 use App\Infrastructure\Domain\Uuid;
 use DateTimeImmutable;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class WorkedDay
 {
     private Uuid $id;

@@ -72,6 +72,9 @@ final class Employee extends AggregateRoot
         ));
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function workedByDay(WorkedDay $workedDay): void
     {
         $this->workedDays[] = $workedDay;
