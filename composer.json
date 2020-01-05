@@ -30,6 +30,6 @@
         }
     ],
     "scripts": {
-        "test": "ls && vendor/bin/phpunit && vendor/bin/roave-no-leaks"
+        "test": "composer install && vendor/bin/phpunit && vendor/bin/roave-no-leaks"
     }
 }

@@ -12,4 +12,5 @@ jobs:
           php-version: 7.4.1
           extensions: 'mbstring, xdebug'
           ini-values: post_max_size=256M, log_errors=1
+      - run: composer install
       - run: composer test
