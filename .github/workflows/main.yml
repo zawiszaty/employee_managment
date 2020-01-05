@@ -1,5 +1,7 @@
 on: [push]
 
+name: tests
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
