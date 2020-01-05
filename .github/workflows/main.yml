@@ -2,14 +2,19 @@ on: [push]
 
 jobs:
   phpunit:
-    runs-on: ubuntu-latest
+    build:
+      strategy:
+        matrix:
+          operating-system: [ubuntu-latest]
+          php-versions: [7.4]
+    runs-on: ${{ matrix.operating-system }}
     name: Run phpunit and generate raport
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: composer
-        run: composer install
-      - name: ls
-        run: ls
-      - name: test and raport
-        run: composer run-script test
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: 'mbstring, xdebug'
+          ini-values: post_max_size=256M, log_errors=1
+      - run: composer test
