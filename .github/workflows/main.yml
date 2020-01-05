@@ -9,3 +9,4 @@ jobs:
         uses: actions/checkout@v1
       - name: PHPUnit and raport
         uses: ./.github/phpunit-action
+        run: ./vendor/bin/phpunit
