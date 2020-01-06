@@ -8,6 +8,9 @@ use App\Infrastructure\Domain\EventId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class EventIdTest extends TestCase
 {
     public function testItCreateId()

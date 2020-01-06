@@ -72,9 +72,6 @@ final class Employee extends AggregateRoot
         ));
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function workedByDay(WorkedDay $workedDay): void
     {
         $this->workedDays[] = $workedDay;
@@ -83,5 +80,10 @@ final class Employee extends AggregateRoot
             $this->id,
             $workedDay,
         ));
+    }
+
+    public function getId(): AggregateRootId
+    {
+        return $this->id;
     }
 }

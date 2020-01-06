@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Domain;
 
+/**
+ * @method AggregateRootId getId()
+ */
 abstract class AggregateRoot
 {
     /** @var array<Event> */

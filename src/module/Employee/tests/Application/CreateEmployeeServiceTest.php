@@ -10,6 +10,9 @@ use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
 use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeRepository;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class CreateEmployeeServiceTest extends TestCase
 {
     private InMemoryEventDispatcher $eventDispatcher;
