@@ -20,8 +20,7 @@ final class EmployeeSaleProductService
     public function sale(
         string $employeeId,
         float $collision
-    ): void
-    {
+    ): void {
         $employee = $this->employeeRepository->get(AggregateRootId::fromString($employeeId));
         $employee->sale(Commission::createFromFloat($collision));
         $this->employeeRepository->apply($employee);

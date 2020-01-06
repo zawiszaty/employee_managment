@@ -21,8 +21,7 @@ final class EmployeeWorkedDayService
     public function workedDay(
         string $employeeId,
         int $hoursAmount
-    ): void
-    {
+    ): void {
         /** @var Employee $employee */
         $employee = $this->employeeRepository->get(AggregateRootId::fromString($employeeId));
         $employee->workedByDay(WorkedDay::create($hoursAmount));

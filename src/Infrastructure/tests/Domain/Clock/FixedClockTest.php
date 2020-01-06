@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\tests\Domain\Clock;
 
 use App\Infrastructure\Domain\Clock\FixedClock;

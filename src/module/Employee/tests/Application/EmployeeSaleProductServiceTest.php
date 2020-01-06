@@ -31,7 +31,7 @@ final class EmployeeSaleProductServiceTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-            );
+        );
         $this->repo->apply($employee);
         $this->employeeSaleProductService->sale($employee->getId()->toString(), 200);
         $events = $this->eventDispatcher->getEvents();

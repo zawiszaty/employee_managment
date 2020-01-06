@@ -7,7 +7,6 @@ namespace App\module\Employee\tests\Application;
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
 use App\module\Employee\Application\EmployeeWorkedDayService;
 use App\module\Employee\Domain\Employee;
-use App\module\Employee\Domain\Event\EmployeeWasSaleItemEvent;
 use App\module\Employee\Domain\Event\EmployeeWasWorkedDayEvent;
 use App\module\Employee\Domain\ValueObject\PersonalData;
 use App\module\Employee\Domain\ValueObject\RemunerationCalculationWay;
@@ -32,7 +31,7 @@ final class EmployeeWorkedDayServiceTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-            );
+        );
         $this->repo->apply($employee);
         $this->employeeSaleProductService->workedDay($employee->getId()->toString(), 8);
         $events = $this->eventDispatcher->getEvents();

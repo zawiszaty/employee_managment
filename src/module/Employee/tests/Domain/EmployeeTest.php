@@ -36,7 +36,7 @@ class EmployeeTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-            );
+        );
         $employee->sale(Commission::createFromFloat(2.5));
         $this->assertCount(2, $employee->getUncommittedEvents());
         $this->assertInstanceOf(EmployeeWasSaleItemEvent::class, $employee->getUncommittedEvents()[1]);
@@ -48,7 +48,7 @@ class EmployeeTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-            );
+        );
         $employee->workedByDay(WorkedDay::create(10));
         $this->assertCount(2, $employee->getUncommittedEvents());
         $this->assertInstanceOf(EmployeeWasWorkedDayEvent::class, $employee->getUncommittedEvents()[1]);

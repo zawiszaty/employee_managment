@@ -20,8 +20,7 @@ final class WorkedDay
         Uuid $id,
         Clock $clock,
         int $hoursAmount
-    )
-    {
+    ) {
         $this->id = $id;
         $this->hoursAmount = $hoursAmount;
         $this->clock = $clock;
