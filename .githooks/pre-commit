@@ -12,7 +12,7 @@ fi
 
   echo -e "\x1B[32mPHPStan:\n\x1B[0m"
   vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=-1 --autoload-file=vendor/autoload.php --no-progress $STAGED_PHP_FILES
-  vendor/bin/php-cs-fixer fix --allow-risky=yes $STAGED_PHP_FILES
+  vendor/bin/php-cs-fixer fix --allow-risky=yes
   PHPSTAN_RES=$?
 
 
