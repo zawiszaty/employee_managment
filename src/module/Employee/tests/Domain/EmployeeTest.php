@@ -49,7 +49,7 @@ class EmployeeTest extends TestCase
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
         );
-        $employee->workedByDay(WorkedDay::create(10));
+        $employee->workedDay(WorkedDay::create(10));
         $this->assertCount(2, $employee->getUncommittedEvents());
         $this->assertInstanceOf(EmployeeWasWorkedDayEvent::class, $employee->getUncommittedEvents()[1]);
     }

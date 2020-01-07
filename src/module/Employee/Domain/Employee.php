@@ -72,7 +72,7 @@ final class Employee extends AggregateRoot
         ));
     }
 
-    public function workedByDay(WorkedDay $workedDay): void
+    public function workedDay(WorkedDay $workedDay): void
     {
         $this->workedDays[] = $workedDay;
         $this->record(new EmployeeWasWorkedDayEvent(
