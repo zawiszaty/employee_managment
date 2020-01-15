@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\module\Tests\Employee\Domain;
+namespace App\module\Employee\Tests\Domain;
 
 use App\module\Employee\Domain\Entity\WorkedDay;
 use App\module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
