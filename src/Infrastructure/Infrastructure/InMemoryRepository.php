@@ -28,6 +28,7 @@ abstract class InMemoryRepository
         foreach ($this->events as $event) {
             $this->eventDispatcher->dispatch($event);
         }
+        $this->events = [];
     }
 
     public function get(AggregateRootId $aggregateRootId): AggregateRoot

@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\module\Employee\Application\Command\EmployeeWorkedDay;
+
+use App\Infrastructure\Domain\AggregateRootId;
+use App\module\Employee\Domain\Employee;
+use App\module\Employee\Domain\EmployeeRepositoryInterface;
+use App\module\Employee\Domain\Entity\WorkedDay;
+
+class EmployeeWorkedDayHandler
+{
+    private EmployeeRepositoryInterface $employeeRepository;
+
+    public function __construct(EmployeeRepositoryInterface $employeeRepository)
+    {
+        $this->employeeRepository = $employeeRepository;
+    }
+
+    public function handle(EmployeeWorkedDayCommand $command): void
+    {
+        /** @var Employee $employee */
+        $employee = $this->employeeRepository->get(AggregateRootId::fromString($command->getEmployeeId()));
+        $employee->workedDay(WorkedDay::create($command->getHoursAmount()));
+        $this->employeeRepository->apply($employee);
+        $this->employeeRepository->save();
+    }
+}

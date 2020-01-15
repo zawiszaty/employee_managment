@@ -38,4 +38,9 @@ final class WorkedDay
     {
         return $this->hoursAmount;
     }
+
+    public function getClock(): Clock
+    {
+        return $this->clock;
+    }
 }

@@ -20,4 +20,9 @@ final class InMemoryEventDispatcher implements EventDispatcher
     {
         return $this->events;
     }
+
+    public function popEvents(): void
+    {
+        $this->events = [];
+    }
 }

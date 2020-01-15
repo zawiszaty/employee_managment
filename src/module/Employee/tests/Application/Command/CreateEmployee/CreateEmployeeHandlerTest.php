@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\module\Employee\tests\Application;
+namespace App\module\Employee\tests\Application\Command\CreateEmployee;
 
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
-use App\module\Employee\Application\CreateEmployeeService;
+use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeCommand;
+use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler;
 use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
 use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeRepository;
 use PHPUnit\Framework\TestCase;
@@ -13,15 +14,15 @@ use PHPUnit\Framework\TestCase;
 /**
  * @codeCoverageIgnore
  */
-final class CreateEmployeeServiceTest extends TestCase
+final class CreateEmployeeHandlerTest extends TestCase
 {
     private InMemoryEventDispatcher $eventDispatcher;
 
-    private CreateEmployeeService $createEmployeeService;
+    private CreateEmployeeHandler $createEmployeeHandler;
 
     public function testItCreateEmployee(): void
     {
-        $this->createEmployeeService->create('test', 'test', 'test', 'hourly', 2.5);
+        $this->createEmployeeHandler->handle(new CreateEmployeeCommand('test', 'test', 'test', 'hourly', 2.5));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(EmployeeWasCreatedEvent::class, $events[0]);
@@ -30,6 +31,6 @@ final class CreateEmployeeServiceTest extends TestCase
     protected function setUp(): void
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
-        $this->createEmployeeService = new CreateEmployeeService(new InMemoryEmployeeRepository($this->eventDispatcher));
+        $this->createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeRepository($this->eventDispatcher));
     }
 }

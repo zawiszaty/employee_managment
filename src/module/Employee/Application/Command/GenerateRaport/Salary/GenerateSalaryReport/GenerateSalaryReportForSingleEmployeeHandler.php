@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\module\Employee\Application;
+
+namespace App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport;
 
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\CommandHandler;
 use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\EmployeeRepositoryInterface;
-use App\module\Employee\Domain\Entity\WorkedDay;
 
-final class EmployeeWorkedDayService
+class GenerateSalaryReportForSingleEmployeeHandler extends CommandHandler
 {
     private EmployeeRepositoryInterface $employeeRepository;
 
@@ -18,13 +19,11 @@ final class EmployeeWorkedDayService
         $this->employeeRepository = $employeeRepository;
     }
 
-    public function workedDay(
-        string $employeeId,
-        int $hoursAmount
-    ): void {
+    public function handle(GenerateSalaryReportForSingleEmployeeCommand $command): void
+    {
         /** @var Employee $employee */
-        $employee = $this->employeeRepository->get(AggregateRootId::fromString($employeeId));
-        $employee->workedDay(WorkedDay::create($hoursAmount));
+        $employee = $this->employeeRepository->get(AggregateRootId::fromString($command->getEmployeeId()));
+        $employee->generateSalaryReport($command->getMonth());
         $this->employeeRepository->apply($employee);
         $this->employeeRepository->save();
     }

@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\module\Employee\Application;
+
+namespace App\module\Employee\Application\Command\EmployeeSaleProduct;
 
 use App\Infrastructure\Domain\AggregateRootId;
 use App\module\Employee\Domain\EmployeeRepositoryInterface;
 use App\module\Employee\Domain\ValueObject\Commission;
 
-final class EmployeeSaleProductService
+class EmployeeSaleProductHandler
 {
     private EmployeeRepositoryInterface $employeeRepository;
 
@@ -17,12 +18,10 @@ final class EmployeeSaleProductService
         $this->employeeRepository = $employeeRepository;
     }
 
-    public function sale(
-        string $employeeId,
-        float $collision
-    ): void {
-        $employee = $this->employeeRepository->get(AggregateRootId::fromString($employeeId));
-        $employee->sale(Commission::createFromFloat($collision));
+    public function handle(EmployeeSaleProductCommand $command): void
+    {
+        $employee = $this->employeeRepository->get(AggregateRootId::fromString($command->getEmployeeId()));
+        $employee->sale(Commission::createFromFloat($command->getCollision()));
         $this->employeeRepository->apply($employee);
         $this->employeeRepository->save();
     }

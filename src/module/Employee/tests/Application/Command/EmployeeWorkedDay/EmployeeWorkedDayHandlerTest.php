@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\module\Employee\tests\Application;
+namespace App\module\Employee\tests\Application\Command\EmployeeWorkedDay;
 
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
-use App\module\Employee\Application\EmployeeWorkedDayService;
+use App\module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayCommand;
+use App\module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayHandler;
 use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\Event\EmployeeWasWorkedDayEvent;
 use App\module\Employee\Domain\ValueObject\PersonalData;
@@ -17,11 +18,11 @@ use PHPUnit\Framework\TestCase;
 /**
  * @codeCoverageIgnore
  */
-final class EmployeeWorkedDayServiceTest extends TestCase
+final class EmployeeWorkedDayHandlerTest extends TestCase
 {
     private InMemoryEventDispatcher $eventDispatcher;
 
-    private EmployeeWorkedDayService $employeeSaleProductService;
+    private EmployeeWorkedDayHandler $employeeWorkedDayHandler;
 
     private InMemoryEmployeeRepository $repo;
 
@@ -31,9 +32,9 @@ final class EmployeeWorkedDayServiceTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-        );
+            );
         $this->repo->apply($employee);
-        $this->employeeSaleProductService->workedDay($employee->getId()->toString(), 8);
+        $this->employeeWorkedDayHandler->handle(new EmployeeWorkedDayCommand($employee->getId()->toString(), 8));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(2, $events);
         $this->assertInstanceOf(EmployeeWasWorkedDayEvent::class, $events[1]);
@@ -43,6 +44,6 @@ final class EmployeeWorkedDayServiceTest extends TestCase
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
         $this->repo = new InMemoryEmployeeRepository($this->eventDispatcher);
-        $this->employeeSaleProductService = new EmployeeWorkedDayService($this->repo);
+        $this->employeeWorkedDayHandler = new EmployeeWorkedDayHandler($this->repo);
     }
 }
