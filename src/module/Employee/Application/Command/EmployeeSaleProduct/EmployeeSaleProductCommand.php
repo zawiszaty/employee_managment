@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\EmployeeSaleProduct;
-
 
 class EmployeeSaleProductCommand
 {
@@ -15,8 +13,7 @@ class EmployeeSaleProductCommand
     public function __construct(
         string $employeeId,
         float $collision
-    )
-    {
+    ) {
         $this->employeeId = $employeeId;
         $this->collision = $collision;
     }

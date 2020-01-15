@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Infrastructure\Projection;
-
 
 use App\module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
 use App\module\Employee\Infrastructure\Generator\PDFGenerator;

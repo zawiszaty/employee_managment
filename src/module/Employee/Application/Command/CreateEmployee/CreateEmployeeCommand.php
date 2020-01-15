@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\CreateEmployee;
-
 
 class CreateEmployeeCommand
 {
@@ -24,15 +22,13 @@ class CreateEmployeeCommand
         string $address,
         string $remunerationCalculationWay,
         float $salary
-    )
-    {
+    ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->address = $address;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
         $this->salary = $salary;
     }
-
 
     public function getFirstName(): string
     {

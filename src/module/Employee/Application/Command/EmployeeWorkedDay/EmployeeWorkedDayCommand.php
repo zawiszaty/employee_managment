@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\EmployeeWorkedDay;
-
 
 class EmployeeWorkedDayCommand
 {
@@ -15,8 +13,7 @@ class EmployeeWorkedDayCommand
     public function __construct(
         string $employeeId,
         int $hoursAmount
-    )
-    {
+    ) {
         $this->employeeId = $employeeId;
         $this->hoursAmount = $hoursAmount;
     }

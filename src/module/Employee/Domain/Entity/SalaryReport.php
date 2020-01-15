@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Domain\Entity;
-
 
 use App\Infrastructure\Domain\AggregateRootId;
 use App\module\Employee\Domain\ValueObject\Reward;
-use App\module\Employee\Domain\ValueObject\Salary;
 
 final class SalaryReport
 {

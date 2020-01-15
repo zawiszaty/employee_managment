@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\EmployeeSaleProduct;
 
 use App\Infrastructure\Domain\AggregateRootId;

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\CreateEmployee;
-
 
 use App\Infrastructure\Domain\CommandHandler;
 use App\module\Employee\Domain\Employee;
@@ -28,7 +26,7 @@ class CreateEmployeeHandler extends CommandHandler
             PersonalData::createFromString($command->getFirstName(), $command->getLastName(), $command->getAddress()),
             new RemunerationCalculationWay($command->getRemunerationCalculationWay()),
             Salary::createFromFloat($command->getSalary()),
-            );
+        );
         $this->employeeRepository->apply($employee);
         $this->employeeRepository->save();
     }

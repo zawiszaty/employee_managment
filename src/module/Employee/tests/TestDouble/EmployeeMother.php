@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\tests\TestDouble;
-
 
 use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\ValueObject\PersonalData;
@@ -18,8 +16,7 @@ class EmployeeMother
         string $lastName = 'test',
         string $address = 'test',
         float $salary = 2.5
-    ): Employee
-    {
+    ): Employee {
         return Employee::create(
             PersonalData::createFromString($firstName, $lastName, $address),
             RemunerationCalculationWay::HOURLY(),
@@ -32,8 +29,7 @@ class EmployeeMother
         string $lastName = 'test',
         string $address = 'test',
         float $salary = 2.5
-    ): Employee
-    {
+    ): Employee {
         return Employee::create(
             PersonalData::createFromString($firstName, $lastName, $address),
             RemunerationCalculationWay::MONTHLY(),
@@ -46,8 +42,7 @@ class EmployeeMother
         string $lastName = 'test',
         string $address = 'test',
         float $salary = 2.5
-    ): Employee
-    {
+    ): Employee {
         return Employee::create(
             PersonalData::createFromString($firstName, $lastName, $address),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),

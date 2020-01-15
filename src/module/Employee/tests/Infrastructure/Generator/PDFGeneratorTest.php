@@ -16,13 +16,13 @@ class PDFGeneratorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->PDFGenerator = new PDFGenerator(new Mpdf(['tempDir' => __DIR__ . self::TMP_DIR]));
+        $this->PDFGenerator = new PDFGenerator(new Mpdf(['tempDir' => __DIR__.self::TMP_DIR]));
     }
 
     public function testItGenerateReport(): void
     {
         $filename = $this->PDFGenerator->generateSingleEmployeeReportPDF(10, 2.5, 01);
-        $this->assertFileExists(__DIR__ . self::TMP_DIR . $filename);
-        unlink(__DIR__ . self::TMP_DIR . $filename);
+        $this->assertFileExists(__DIR__.self::TMP_DIR.$filename);
+        unlink(__DIR__.self::TMP_DIR.$filename);
     }
 }

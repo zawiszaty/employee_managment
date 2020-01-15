@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\tests\Application\Command\GenerateRaport\Salary\GenerateSalaryReport;
 
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
@@ -32,7 +31,7 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
         $this->handler = new GenerateSalaryReportForSingleEmployeeHandler($this->repository);
         $this->employee = EmployeeMother::createEmployeeM();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $this->employee->workedDay(WorkedDay::create(8));
         }
         $this->repository->apply($this->employee);

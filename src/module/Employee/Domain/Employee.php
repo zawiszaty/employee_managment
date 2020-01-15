@@ -41,8 +41,7 @@ final class Employee extends AggregateRoot
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    )
-    {
+    ) {
         $this->id = AggregateRootId::generate();
         $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
@@ -53,8 +52,7 @@ final class Employee extends AggregateRoot
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    ): self
-    {
+    ): self {
         $employee = new static(
             $personalData,
             $remunerationCalculationWay,
@@ -101,7 +99,7 @@ final class Employee extends AggregateRoot
 
         if (RemunerationCalculationWay::MONTHLY()->equals($this->remunerationCalculationWay)) {
             array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-                if ((int)$workedDay->getClock()->currentDateTime()->format('m') === $month) {
+                if ((int) $workedDay->getClock()->currentDateTime()->format('m') === $month) {
                     $workedHours += $workedDay->getHoursAmount();
                 }
             }, $this->workedDays);
@@ -109,14 +107,14 @@ final class Employee extends AggregateRoot
             $this->salaryReport = SalaryReport::create($this->getId(), Reward::createFromFloat($this->salary->getAmount()), $workedHours, $workedHours);
         } elseif (RemunerationCalculationWay::HOURLY()->equals($this->remunerationCalculationWay)) {
             array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-                if ((int)$workedDay->getClock()->currentDateTime()->format('m') === $month) {
+                if ((int) $workedDay->getClock()->currentDateTime()->format('m') === $month) {
                     $workedHours += $workedDay->getHoursAmount();
                 }
             }, $this->workedDays);
             $this->salaryReport = SalaryReport::create($this->getId(), Reward::createFromFloat($this->salary->getAmount() * $workedHours), $workedHours, $workedHours);
         } else {
             array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-                if ((int)$workedDay->getClock()->currentDateTime()->format('m') === $month) {
+                if ((int) $workedDay->getClock()->currentDateTime()->format('m') === $month) {
                     $workedHours += $workedDay->getHoursAmount();
                 }
             }, $this->workedDays);

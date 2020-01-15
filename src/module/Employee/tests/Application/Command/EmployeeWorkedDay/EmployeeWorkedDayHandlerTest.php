@@ -32,7 +32,7 @@ final class EmployeeWorkedDayHandlerTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-            );
+        );
         $this->repo->apply($employee);
         $this->employeeWorkedDayHandler->handle(new EmployeeWorkedDayCommand($employee->getId()->toString(), 8));
         $events = $this->eventDispatcher->getEvents();

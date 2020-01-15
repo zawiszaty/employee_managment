@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Infrastructure\Generator;
-
 
 use Mpdf\Mpdf;
 use Ramsey\Uuid\Uuid;
@@ -34,7 +32,7 @@ class PDFGenerator implements PDFGeneratorInterface
         ";
         $this->mpdf->WriteHTML($html);
         $filename = sprintf('%s.pdf', Uuid::uuid4()->toString());
-        $this->mpdf->Output('.tmp/' . $filename, \Mpdf\Output\Destination::FILE);
+        $this->mpdf->Output('.tmp/'.$filename, \Mpdf\Output\Destination::FILE);
 
         return $filename;
     }

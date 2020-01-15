@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport;
 
 use App\Infrastructure\Domain\AggregateRootId;
