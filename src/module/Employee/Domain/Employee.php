@@ -41,8 +41,7 @@ final class Employee extends AggregateRoot
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    )
-    {
+    ) {
         $this->id = AggregateRootId::generate();
         $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
@@ -53,8 +52,7 @@ final class Employee extends AggregateRoot
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    ): self
-    {
+    ): self {
         $employee = new static(
             $personalData,
             $remunerationCalculationWay,
@@ -100,7 +98,7 @@ final class Employee extends AggregateRoot
         $report = null;
 
         array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-            if ((int)$workedDay->getClock()->currentDateTime()->format('m') === $month) {
+            if ((int) $workedDay->getClock()->currentDateTime()->format('m') === $month) {
                 $workedHours += $workedDay->getHoursAmount();
             }
         }, $this->workedDays);

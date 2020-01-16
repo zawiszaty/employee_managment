@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Domain\Policy\CalculateRewardPolicy;
 
 use App\module\Employee\Domain\ValueObject\Commission;
@@ -20,6 +19,7 @@ class CalculateMonthlyWithCommissionRewardPolicy implements CalculateRewardPolic
         foreach ($commissions as $commission) {
             $rewardAmount += $commission->getCommission();
         }
+
         return Reward::createFromFloat($salary->getAmount() + $rewardAmount);
     }
 
