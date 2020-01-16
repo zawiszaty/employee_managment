@@ -10,6 +10,7 @@ use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalary
 use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\Entity\WorkedDay;
 use App\module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
+use App\module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateRewardPolicyFactory;
 use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeRepository;
 use App\module\Employee\tests\TestDouble\EmployeeMother;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +29,7 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
         $this->repository = new InMemoryEmployeeRepository($this->eventDispatcher);
-        $this->handler = new GenerateSalaryReportForSingleEmployeeHandler($this->repository);
+        $this->handler = new GenerateSalaryReportForSingleEmployeeHandler($this->repository, new CalculateRewardPolicyFactory());
         $this->employee = EmployeeMother::createEmployeeM();
 
         for ($i = 0; $i < 20; ++$i) {

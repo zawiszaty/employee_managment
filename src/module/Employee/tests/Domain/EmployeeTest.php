@@ -9,6 +9,9 @@ use App\module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
 use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
 use App\module\Employee\Domain\Event\EmployeeWasSaleItemEvent;
 use App\module\Employee\Domain\Event\EmployeeWasWorkedDayEvent;
+use App\module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateHourlyRewardPolicy;
+use App\module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateMonthlyRewardPolicy;
+use App\module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateMonthlyWithCommissionRewardPolicy;
 use App\module\Employee\Domain\ValueObject\Commission;
 use App\module\Employee\tests\TestDouble\EmployeeMother;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +51,7 @@ class EmployeeTest extends TestCase
     {
         $employee = EmployeeMother::createEmployeeM();
         $employee->workedDay(WorkedDay::create(10));
-        $employee->generateSalaryReport(01);
+        $employee->generateSalaryReport(01, new CalculateMonthlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
         $this->assertSame(10, $report->getHoursAmount());
@@ -61,7 +64,7 @@ class EmployeeTest extends TestCase
     {
         $employee = EmployeeMother::createEmployeeH();
         $employee->workedDay(WorkedDay::create(10));
-        $employee->generateSalaryReport(01);
+        $employee->generateSalaryReport(01, new CalculateHourlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
         $this->assertSame(10, $report->getHoursAmount());
@@ -75,7 +78,7 @@ class EmployeeTest extends TestCase
         $employee = EmployeeMother::createEmployeeMC();
         $employee->workedDay(WorkedDay::create(10));
         $employee->sale(Commission::createFromFloat(100));
-        $employee->generateSalaryReport(01);
+        $employee->generateSalaryReport(01, new CalculateMonthlyWithCommissionRewardPolicy());
         $report = $employee->getSalaryReport();
 
         $this->assertSame(10, $report->getHoursAmount());

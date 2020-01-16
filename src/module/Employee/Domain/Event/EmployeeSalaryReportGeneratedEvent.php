@@ -7,7 +7,7 @@ namespace App\module\Employee\Domain\Event;
 use App\Infrastructure\Domain\AggregateRootId;
 use App\Infrastructure\Domain\Event;
 use App\Infrastructure\Domain\EventId;
-use App\module\Employee\Domain\ValueObject\Salary;
+use App\module\Employee\Domain\Entity\SalaryReport;
 
 /**
  * @codeCoverageIgnore
@@ -18,19 +18,13 @@ class EmployeeSalaryReportGeneratedEvent implements Event
 
     private AggregateRootId $aggregateId;
 
-    private int $hoursAmount;
+    private SalaryReport $salaryReport;
 
-    private Salary $salary;
-
-    private int $month;
-
-    public function __construct(EventId $id, AggregateRootId $aggregateId, int $hoursAmount, Salary $salary, int $month)
+    public function __construct(EventId $id, AggregateRootId $aggregateId, SalaryReport $salaryReport)
     {
         $this->id = $id;
         $this->aggregateId = $aggregateId;
-        $this->hoursAmount = $hoursAmount;
-        $this->salary = $salary;
-        $this->month = $month;
+        $this->salaryReport = $salaryReport;
     }
 
     public function getId(): EventId
@@ -43,18 +37,8 @@ class EmployeeSalaryReportGeneratedEvent implements Event
         return $this->aggregateId;
     }
 
-    public function getHoursAmount(): int
+    public function getSalaryReport(): SalaryReport
     {
-        return $this->hoursAmount;
-    }
-
-    public function getSalary(): Salary
-    {
-        return $this->salary;
-    }
-
-    public function getMonth(): int
-    {
-        return $this->month;
+        return $this->salaryReport;
     }
 }
