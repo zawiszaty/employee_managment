@@ -95,7 +95,6 @@ final class Employee extends AggregateRoot
     public function generateSalaryReport(int $month, CalculateRewardPolicyInterface $calculateRewardPolicy): void
     {
         $workedHours = 0;
-        $report = null;
 
         array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
             if ((int) $workedDay->getClock()->currentDateTime()->format('m') === $month) {

@@ -19,7 +19,7 @@ class FileMoverTest extends TestCase
 
     public function testItMoveFileToOtherDir(): void
     {
-        $this->mover->move('test.txt', __DIR__.'/../../../../../.tmp/', __DIR__.'/../../../../../web/private/');
+        $this->mover->move('test.txt');
         $this->assertFileNotExists(__DIR__.'/../../../../../.tmp/test.txt');
         $this->assertFileExists(__DIR__.'/../../../../../web/private/test.txt');
         unlink(__DIR__.'/../../../../../web/private/test.txt');

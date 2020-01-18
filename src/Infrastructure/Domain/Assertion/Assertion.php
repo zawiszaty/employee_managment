@@ -11,5 +11,5 @@ use Assert\Assertion as BaseAssertion;
  */
 final class Assertion extends BaseAssertion
 {
-    protected static $exceptionClass = 'App\Infrastructure\Domain\DomainException';
+    protected static $exceptionClass = 'App\Infrastructure\Domain\AssertionException';
 }

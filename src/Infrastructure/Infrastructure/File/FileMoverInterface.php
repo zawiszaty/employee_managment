@@ -6,5 +6,5 @@ namespace App\Infrastructure\Infrastructure\File;
 
 interface FileMoverInterface
 {
-    public function move(string $filename, string $oldPath, string $newPath): void;
+    public function move(string $filename): void;
 }

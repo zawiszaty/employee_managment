@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\module\Employee\Application\Command\EmployeeWorkedDay;
 
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\CommandHandler;
 use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\EmployeeRepositoryInterface;
 use App\module\Employee\Domain\Entity\WorkedDay;
 
-class EmployeeWorkedDayHandler
+class EmployeeWorkedDayHandler extends CommandHandler
 {
     private EmployeeRepositoryInterface $employeeRepository;
 

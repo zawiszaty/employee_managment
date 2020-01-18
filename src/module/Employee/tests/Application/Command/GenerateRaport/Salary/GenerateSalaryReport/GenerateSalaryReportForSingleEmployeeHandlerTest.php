@@ -11,7 +11,7 @@ use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\Entity\WorkedDay;
 use App\module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
 use App\module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateRewardPolicyFactory;
-use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeRepository;
+use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use App\module\Employee\tests\TestDouble\EmployeeMother;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,7 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
 {
     private GenerateSalaryReportForSingleEmployeeHandler $handler;
 
-    private InMemoryEmployeeRepository $repository;
+    private InMemoryEmployeeAggregateRepository $repository;
 
     private Employee $employee;
 
@@ -28,7 +28,7 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
-        $this->repository = new InMemoryEmployeeRepository($this->eventDispatcher);
+        $this->repository = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
         $this->handler = new GenerateSalaryReportForSingleEmployeeHandler($this->repository, new CalculateRewardPolicyFactory());
         $this->employee = EmployeeMother::createEmployeeM();
 

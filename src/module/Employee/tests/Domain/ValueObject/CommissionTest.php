@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\tests\Domain\ValueObject;
 
-use App\Infrastructure\Domain\DomainException;
+use App\Infrastructure\Domain\AssertionException;
 use App\module\Employee\Domain\ValueObject\Commission;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ final class CommissionTest extends TestCase
 
     public function testItValidateNegativeCommission(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(AssertionException::class);
         Commission::createFromFloat(-2.5);
     }
 }

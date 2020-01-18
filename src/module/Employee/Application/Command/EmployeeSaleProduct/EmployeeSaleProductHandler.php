@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\module\Employee\Application\Command\EmployeeSaleProduct;
 
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\CommandHandler;
 use App\module\Employee\Domain\EmployeeRepositoryInterface;
 use App\module\Employee\Domain\ValueObject\Commission;
 
-class EmployeeSaleProductHandler
+class EmployeeSaleProductHandler extends CommandHandler
 {
     private EmployeeRepositoryInterface $employeeRepository;
 

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Infrastructure;
 
-use App\Infrastructure\Domain\AggregateRoot;
-use App\Infrastructure\Domain\AggregateRootId;
 use App\Infrastructure\Domain\EventDispatcher;
+use App\Infrastructure\Domain\Uuid;
 
 abstract class InMemoryRepository
 {
@@ -14,32 +13,25 @@ abstract class InMemoryRepository
 
     private array $events;
 
-    /** @var array<AggregateRoot> */
-    private array $aggregates = [];
+    protected array $aggregates = [];
 
-    public function __construct(EventDispatcher $eventDispatcher)
+    public function __construct()
     {
         $this->events = [];
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function save(): void
     {
-        foreach ($this->events as $event) {
-            $this->eventDispatcher->dispatch($event);
-        }
         $this->events = [];
     }
 
-    public function get(AggregateRootId $aggregateRootId): AggregateRoot
+    public function get(Uuid $aggregateRootId): object
     {
         return $this->aggregates[$aggregateRootId->toString()];
     }
 
-    public function apply(AggregateRoot $aggregateRoot): void
+    public function apply($aggregateRoot): void
     {
-        $this->events = array_merge($this->events, $aggregateRoot->getUncommittedEvents());
-        $aggregateRoot->commitEvents();
-        $this->aggregates[$aggregateRoot->getId()->toString()] = $aggregateRoot;
+        $this->aggregates[] = $aggregateRoot;
     }
 }

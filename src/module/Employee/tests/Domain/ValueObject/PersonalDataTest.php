@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\tests\Domain\ValueObject;
 
-use App\Infrastructure\Domain\DomainException;
+use App\Infrastructure\Domain\AssertionException;
 use App\module\Employee\Domain\ValueObject\PersonalData;
 use PHPUnit\Framework\TestCase;
 
@@ -27,7 +27,7 @@ final class PersonalDataTest extends TestCase
 
     public function testItThrowExceptionWhenFirstNameIsEmpty(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(AssertionException::class);
         $personalData = PersonalData::createFromString('', self::LAST_NAME, self::ADDRESS);
         $this->assertSame(self::LAST_NAME, $personalData->getLastName());
         $this->assertSame(self::ADDRESS, $personalData->getAddress());

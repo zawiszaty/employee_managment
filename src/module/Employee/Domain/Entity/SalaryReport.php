@@ -39,4 +39,9 @@ final class SalaryReport
     {
         return $this->reward;
     }
+
+    public function getMonth(): int
+    {
+        return $this->month;
+    }
 }

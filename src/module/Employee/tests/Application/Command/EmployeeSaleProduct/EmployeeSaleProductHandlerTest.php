@@ -12,7 +12,7 @@ use App\module\Employee\Domain\Event\EmployeeWasSaleItemEvent;
 use App\module\Employee\Domain\ValueObject\PersonalData;
 use App\module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\module\Employee\Domain\ValueObject\Salary;
-use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeRepository;
+use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,7 +24,7 @@ final class EmployeeSaleProductHandlerTest extends TestCase
 
     private EmployeeSaleProductHandler $employeeSaleProductHandler;
 
-    private InMemoryEmployeeRepository $repo;
+    private InMemoryEmployeeAggregateRepository $repo;
 
     public function testItEmployeeSaleItem(): void
     {
@@ -43,7 +43,7 @@ final class EmployeeSaleProductHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
-        $this->repo = new InMemoryEmployeeRepository($this->eventDispatcher);
+        $this->repo = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
         $this->employeeSaleProductHandler = new EmployeeSaleProductHandler($this->repo);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\tests\Domain\ValueObject;
 
-use App\Infrastructure\Domain\DomainException;
+use App\Infrastructure\Domain\AssertionException;
 use App\module\Employee\Domain\ValueObject\Salary;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ class SalaryTest extends TestCase
 
     public function testItCreateValidateNegativeAmount(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(AssertionException::class);
         Salary::createFromFloat(-1);
     }
 }

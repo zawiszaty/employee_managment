@@ -25,14 +25,36 @@ class PDFGenerator implements PDFGeneratorInterface
         <html>
             <body>
                 <div>HoursAmount: $hoursAmount</div>
-                <div>Salary: $hoursAmount</div>
+                <div>Salary: $salary</div>
                 <div>Month: $month</div>
             </body>
         </html>
         ";
         $this->mpdf->WriteHTML($html);
         $filename = sprintf('%s.pdf', Uuid::uuid4()->toString());
-        $this->mpdf->Output('.tmp/'.$filename, \Mpdf\Output\Destination::FILE);
+        $this->mpdf->Output('.tmp/' . $filename, \Mpdf\Output\Destination::FILE);
+
+        return $filename;
+    }
+
+    public function generateAllEmployeesReportPDF(int $hoursAmount, float $salary, int $month, int $employeeAmount): string
+    {
+        $this->mpdf->SetDisplayMode('fullpage');
+        $this->mpdf->SetHeader('{DATE j-m-Y}| Salary Report for |{PAGENO}');
+        $this->mpdf->SetFooter('Szymon Ciompała EmployeeManagment');
+        $html = "
+        <html>
+            <body>
+                <div>HoursAmount: $hoursAmount</div>
+                <div>Salary: $salary</div>
+                <div>Month: $month</div>
+                <div>Employees Amount: $employeeAmount</div>
+            </body>
+        </html>
+        ";
+        $this->mpdf->WriteHTML($html);
+        $filename = sprintf('%s.pdf', Uuid::uuid4()->toString());
+        $this->mpdf->Output('.tmp/' . $filename, \Mpdf\Output\Destination::FILE);
 
         return $filename;
     }

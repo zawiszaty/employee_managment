@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\tests\Domain\Entity;
 
-use App\Infrastructure\Domain\DomainException;
+use App\Infrastructure\Domain\AssertionException;
 use App\module\Employee\Domain\Entity\WorkedDay;
 use PHPUnit\Framework\TestCase;
 
@@ -21,13 +21,13 @@ class WorkedDayTest extends TestCase
 
     public function testItValidateNegativeHoursAmount(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(AssertionException::class);
         WorkedDay::create(-1);
     }
 
     public function testItValidateToMuchHoursAmount(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(AssertionException::class);
         WorkedDay::create(25);
     }
 }

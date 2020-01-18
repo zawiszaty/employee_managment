@@ -8,7 +8,7 @@ use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
 use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeCommand;
 use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler;
 use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
-use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeRepository;
+use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,6 +31,6 @@ final class CreateEmployeeHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
-        $this->createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeRepository($this->eventDispatcher));
+        $this->createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeAggregateRepository($this->eventDispatcher));
     }
 }

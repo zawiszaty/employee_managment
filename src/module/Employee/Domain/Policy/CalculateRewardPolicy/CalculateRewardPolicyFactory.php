@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\Domain\Policy\CalculateRewardPolicy;
 
+use App\Infrastructure\Domain\DomainException;
 use App\module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 
 class CalculateRewardPolicyFactory
@@ -27,5 +28,7 @@ class CalculateRewardPolicyFactory
                 return $policy;
             }
         }
+
+        throw new DomainException('Missing policy!!!!!!');
     }
 }
