@@ -32,7 +32,7 @@ class PDFGenerator implements PDFGeneratorInterface
         ";
         $this->mpdf->WriteHTML($html);
         $filename = sprintf('%s.pdf', Uuid::uuid4()->toString());
-        $this->mpdf->Output('.tmp/' . $filename, \Mpdf\Output\Destination::FILE);
+        $this->mpdf->Output('.tmp/'.$filename, \Mpdf\Output\Destination::FILE);
 
         return $filename;
     }
@@ -54,7 +54,7 @@ class PDFGenerator implements PDFGeneratorInterface
         ";
         $this->mpdf->WriteHTML($html);
         $filename = sprintf('%s.pdf', Uuid::uuid4()->toString());
-        $this->mpdf->Output('.tmp/' . $filename, \Mpdf\Output\Destination::FILE);
+        $this->mpdf->Output('.tmp/'.$filename, \Mpdf\Output\Destination::FILE);
 
         return $filename;
     }

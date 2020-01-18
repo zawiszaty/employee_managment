@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateForAllEmployees;
-
 
 use App\Infrastructure\Domain\CommandHandler;
 use App\Infrastructure\Domain\EventDispatcher;
@@ -35,11 +33,11 @@ class GenerateForAllEmployeesHandler extends CommandHandler
         /** @var SalaryReport $report */
         foreach ($reports as $report) {
             $reward += $report->getReward()->getAmount();
-            $employeesAmount++;
+            ++$employeesAmount;
             $hoursAmount += $report->getHoursAmount();
         }
         $this->eventDispatcher->dispatch(new EmployeeSalaryReportForAllEmployeesGeneratedEvent(
-            Reward::createFromFloat((float)$reward),
+            Reward::createFromFloat((float) $reward),
             $command->getMonth(),
             $employeesAmount,
             $hoursAmount

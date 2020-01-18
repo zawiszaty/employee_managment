@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateForAllEmployees;
-
 
 class GenerateForAllEmployeesCommand
 {

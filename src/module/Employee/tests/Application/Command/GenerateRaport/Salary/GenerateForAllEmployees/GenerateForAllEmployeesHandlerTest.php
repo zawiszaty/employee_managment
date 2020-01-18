@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\tests\Application\Command\GenerateRaport\Salary\GenerateForAllEmployees;
 
 use App\Infrastructure\Domain\AggregateRootId;
@@ -29,7 +28,7 @@ final class GenerateForAllEmployeesHandlerTest extends TestCase
         $this->repository = new InMemorySalaryReportRepository();
         $this->handler = new GenerateForAllEmployeesHandler($this->repository, $this->eventDispatcher);
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; ++$i) {
             $this->repository->apply(SalaryReport::create(AggregateRootId::generate(), Reward::createFromFloat(20.0), 01, 10));
         }
     }

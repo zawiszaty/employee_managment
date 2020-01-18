@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\module\Employee\Domain;
-
 
 use App\Infrastructure\Domain\AggregateRootId;
 use App\module\Employee\Domain\Entity\SalaryReport;

@@ -32,41 +32,26 @@ class EmployeeSalaryReportForAllEmployeesGeneratedEvent implements Event
         $this->hoursAmount = $hoursAmount;
     }
 
-    /**
-     * @return EventId
-     */
     public function getId(): EventId
     {
         return $this->id;
     }
 
-    /**
-     * @return Reward
-     */
     public function getReward(): Reward
     {
         return $this->reward;
     }
 
-    /**
-     * @return int
-     */
     public function getMonth(): int
     {
         return $this->month;
     }
 
-    /**
-     * @return int
-     */
     public function getEmployeeAmounts(): int
     {
         return $this->employeeAmounts;
     }
 
-    /**
-     * @return int
-     */
     public function getHoursAmount(): int
     {
         return $this->hoursAmount;
