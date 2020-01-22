@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\module\Employee\tests\Application\Command\EmployeeSaleProduct;
 
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Application\Command\EmployeeSaleProduct\EmployeeSaleProductCommand;
 use App\module\Employee\Application\Command\EmployeeSaleProduct\EmployeeSaleProductHandler;
 use App\module\Employee\Domain\Employee;
@@ -22,9 +23,10 @@ final class EmployeeSaleProductHandlerTest extends TestCase
 {
     private InMemoryEventDispatcher $eventDispatcher;
 
-    private EmployeeSaleProductHandler $employeeSaleProductHandler;
 
     private InMemoryEmployeeAggregateRepository $repo;
+
+    private EmployeeApi $api;
 
     public function testItEmployeeSaleItem(): void
     {
@@ -32,9 +34,9 @@ final class EmployeeSaleProductHandlerTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-        );
+            );
         $this->repo->apply($employee);
-        $this->employeeSaleProductHandler->handle(new EmployeeSaleProductCommand($employee->getId()->toString(), 200));
+        $this->api->handle(new EmployeeSaleProductCommand($employee->getId()->toString(), 200));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(2, $events);
         $this->assertInstanceOf(EmployeeWasSaleItemEvent::class, $events[1]);
@@ -44,6 +46,8 @@ final class EmployeeSaleProductHandlerTest extends TestCase
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
         $this->repo = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
-        $this->employeeSaleProductHandler = new EmployeeSaleProductHandler($this->repo);
+        $employeeSaleProductHandler = new EmployeeSaleProductHandler($this->repo);
+        $this->api = new EmployeeApi();
+        $this->api->addHandler($employeeSaleProductHandler);
     }
 }

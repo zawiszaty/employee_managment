@@ -6,6 +6,7 @@ namespace App\module\Employee\tests\Application\Command\GenerateRaport\Salary\Ge
 
 use App\Infrastructure\Domain\AggregateRootId;
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesCommand;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler;
 use App\module\Employee\Domain\Entity\SalaryReport;
@@ -20,22 +21,25 @@ final class GenerateForAllEmployeesHandlerTest extends TestCase
 
     private InMemorySalaryReportRepository $repository;
 
-    private GenerateForAllEmployeesHandler $handler;
+    private EmployeeApi $api;
 
     protected function setUp(): void
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
         $this->repository = new InMemorySalaryReportRepository();
-        $this->handler = new GenerateForAllEmployeesHandler($this->repository, $this->eventDispatcher);
+        $handler = new GenerateForAllEmployeesHandler($this->repository, $this->eventDispatcher);
 
         for ($i = 0; $i < 10; ++$i) {
             $this->repository->apply(SalaryReport::create(AggregateRootId::generate(), Reward::createFromFloat(20.0), 01, 10));
         }
+
+        $this->api = new EmployeeApi();
+        $this->api->addHandler($handler);
     }
 
     public function testItGenerateReportForAllEmployee(): void
     {
-        $this->handler->handle(new GenerateForAllEmployeesCommand(01));
+        $this->api->handle(new GenerateForAllEmployeesCommand(01));
         /** @var EmployeeSalaryReportForAllEmployeesGeneratedEvent $event */
         $event = $this->eventDispatcher->getEvents()[0];
 

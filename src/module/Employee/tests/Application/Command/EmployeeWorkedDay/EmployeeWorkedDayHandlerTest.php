@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\module\Employee\tests\Application\Command\EmployeeWorkedDay;
 
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayCommand;
 use App\module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayHandler;
 use App\module\Employee\Domain\Employee;
@@ -22,9 +23,9 @@ final class EmployeeWorkedDayHandlerTest extends TestCase
 {
     private InMemoryEventDispatcher $eventDispatcher;
 
-    private EmployeeWorkedDayHandler $employeeWorkedDayHandler;
-
     private InMemoryEmployeeAggregateRepository $repo;
+
+    private EmployeeApi $api;
 
     public function testItEmployeeSaleItem(): void
     {
@@ -34,7 +35,7 @@ final class EmployeeWorkedDayHandlerTest extends TestCase
             Salary::createFromFloat(2.5),
         );
         $this->repo->apply($employee);
-        $this->employeeWorkedDayHandler->handle(new EmployeeWorkedDayCommand($employee->getId()->toString(), 8));
+        $this->api->handle(new EmployeeWorkedDayCommand($employee->getId()->toString(), 8));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(2, $events);
         $this->assertInstanceOf(EmployeeWasWorkedDayEvent::class, $events[1]);
@@ -44,6 +45,8 @@ final class EmployeeWorkedDayHandlerTest extends TestCase
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
         $this->repo = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
-        $this->employeeWorkedDayHandler = new EmployeeWorkedDayHandler($this->repo);
+        $employeeWorkedDayHandler = new EmployeeWorkedDayHandler($this->repo);
+        $this->api = new EmployeeApi();
+        $this->api->addHandler($employeeWorkedDayHandler);
     }
 }

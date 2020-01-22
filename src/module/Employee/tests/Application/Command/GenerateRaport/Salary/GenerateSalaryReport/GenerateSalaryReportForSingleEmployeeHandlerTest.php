@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\module\Employee\tests\Application\Command\GenerateRaport\Salary\GenerateSalaryReport;
 
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeCommand;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeHandler;
 use App\module\Employee\Domain\Employee;
@@ -17,19 +18,19 @@ use PHPUnit\Framework\TestCase;
 
 class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
 {
-    private GenerateSalaryReportForSingleEmployeeHandler $handler;
-
     private InMemoryEmployeeAggregateRepository $repository;
 
     private Employee $employee;
 
     private InMemoryEventDispatcher $eventDispatcher;
 
+    private EmployeeApi $api;
+
     protected function setUp(): void
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
         $this->repository = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
-        $this->handler = new GenerateSalaryReportForSingleEmployeeHandler($this->repository, new CalculateRewardPolicyFactory());
+        $handler = new GenerateSalaryReportForSingleEmployeeHandler($this->repository, new CalculateRewardPolicyFactory());
         $this->employee = EmployeeMother::createEmployeeM();
 
         for ($i = 0; $i < 20; ++$i) {
@@ -38,11 +39,13 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
         $this->repository->apply($this->employee);
         $this->repository->save();
         $this->eventDispatcher->popEvents();
+        $this->api = new EmployeeApi();
+        $this->api->addHandler($handler);
     }
 
     public function testItGenerateReport(): void
     {
-        $this->handler->handle(new GenerateSalaryReportForSingleEmployeeCommand($this->employee->getId()->toString(), 1));
+        $this->api->handle(new GenerateSalaryReportForSingleEmployeeCommand($this->employee->getId()->toString(), 1));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(EmployeeSalaryReportGeneratedEvent::class, $events[0]);

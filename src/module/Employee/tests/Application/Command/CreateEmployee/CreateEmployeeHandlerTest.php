@@ -7,6 +7,7 @@ namespace App\module\Employee\tests\Application\Command\CreateEmployee;
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
 use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeCommand;
 use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler;
+use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
 use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use PHPUnit\Framework\TestCase;
@@ -18,11 +19,11 @@ final class CreateEmployeeHandlerTest extends TestCase
 {
     private InMemoryEventDispatcher $eventDispatcher;
 
-    private CreateEmployeeHandler $createEmployeeHandler;
+    private EmployeeApi $api;
 
     public function testItCreateEmployee(): void
     {
-        $this->createEmployeeHandler->handle(new CreateEmployeeCommand('test', 'test', 'test', 'hourly', 2.5));
+        $this->api->handle(new CreateEmployeeCommand('test', 'test', 'test', 'hourly', 2.5));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(EmployeeWasCreatedEvent::class, $events[0]);
@@ -31,6 +32,8 @@ final class CreateEmployeeHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->eventDispatcher = new InMemoryEventDispatcher();
-        $this->createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeAggregateRepository($this->eventDispatcher));
+        $createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeAggregateRepository($this->eventDispatcher));
+        $this->api = new EmployeeApi();
+        $this->api->addHandler($createEmployeeHandler);
     }
 }
