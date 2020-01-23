@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\tests\Application\Command\GenerateRaport\Salary\GenerateSalaryReport;
 
+use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeCommand;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeHandler;
@@ -34,7 +35,7 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
         $this->employee = EmployeeMother::createEmployeeM();
 
         for ($i = 0; $i < 20; ++$i) {
-            $this->employee->workedDay(WorkedDay::create(8));
+            $this->employee->workedDay(WorkedDay::create(8, Clock::system()));
         }
         $this->repository->apply($this->employee);
         $this->repository->save();

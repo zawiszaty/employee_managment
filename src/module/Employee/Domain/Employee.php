@@ -97,7 +97,7 @@ final class Employee extends AggregateRoot
         $workedHours = 0;
 
         array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-            if ((int) $workedDay->getClock()->currentDateTime()->format('m') === $month) {
+            if ((int) $workedDay->getClock()->format('m') === $month) {
                 $workedHours += $workedDay->getHoursAmount();
             }
         }, $this->workedDays);

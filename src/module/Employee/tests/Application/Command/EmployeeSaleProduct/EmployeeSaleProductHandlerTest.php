@@ -33,7 +33,7 @@ final class EmployeeSaleProductHandlerTest extends TestCase
             PersonalData::createFromString('test', 'test', 'test'),
             RemunerationCalculationWay::MONTHLY_WITH_COMMISSION(),
             Salary::createFromFloat(2.5),
-            );
+        );
         $this->repo->apply($employee);
         $this->api->handle(new EmployeeSaleProductCommand($employee->getId()->toString(), 200));
         $events = $this->eventDispatcher->getEvents();

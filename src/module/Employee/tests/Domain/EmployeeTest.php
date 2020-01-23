@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\module\Employee\Tests\Domain;
 
+use App\Infrastructure\Domain\Clock;
 use App\module\Employee\Domain\Entity\WorkedDay;
 use App\module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
 use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
@@ -41,7 +42,7 @@ class EmployeeTest extends TestCase
     public function testEmployeeWorkedDay(): void
     {
         $employee = EmployeeMother::createEmployeeMC();
-        $employee->workedDay(WorkedDay::create(10));
+        $employee->workedDay(WorkedDay::create(10, Clock::system()));
 
         $this->assertCount(2, $employee->getUncommittedEvents());
         $this->assertInstanceOf(EmployeeWasWorkedDayEvent::class, $employee->getUncommittedEvents()[1]);
@@ -50,7 +51,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportMonthly(): void
     {
         $employee = EmployeeMother::createEmployeeM();
-        $employee->workedDay(WorkedDay::create(10));
+        $employee->workedDay(WorkedDay::create(10, Clock::system()));
         $employee->generateSalaryReport(01, new CalculateMonthlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
@@ -63,7 +64,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourly(): void
     {
         $employee = EmployeeMother::createEmployeeH();
-        $employee->workedDay(WorkedDay::create(10));
+        $employee->workedDay(WorkedDay::create(10, Clock::system()));
         $employee->generateSalaryReport(01, new CalculateHourlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
@@ -76,7 +77,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourlyWithCommission(): void
     {
         $employee = EmployeeMother::createEmployeeMC();
-        $employee->workedDay(WorkedDay::create(10));
+        $employee->workedDay(WorkedDay::create(10, Clock::system()));
         $employee->sale(Commission::createFromFloat(100));
         $employee->generateSalaryReport(01, new CalculateMonthlyWithCommissionRewardPolicy());
         $report = $employee->getSalaryReport();
