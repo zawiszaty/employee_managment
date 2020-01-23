@@ -9,6 +9,7 @@ use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeCommand
 use App\module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler;
 use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Domain\Event\EmployeeWasCreatedEvent;
+use App\module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -26,7 +27,13 @@ final class CreateEmployeeHandlerTest extends TestCase
         $this->api->handle(new CreateEmployeeCommand('test', 'test', 'test', 'hourly', 2.5));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(1, $events);
-        $this->assertInstanceOf(EmployeeWasCreatedEvent::class, $events[0]);
+        /** @var EmployeeWasCreatedEvent $event */
+        $event = $events[0];
+        $this->assertInstanceOf(EmployeeWasCreatedEvent::class, $event);
+        $this->assertTrue($event->getRemunerationCalculationWay()->equals(RemunerationCalculationWay::HOURLY()));
+        $this->assertSame($event->getPersonalData()->getAddress(), 'test');
+        $this->assertSame($event->getPersonalData()->getFirstName(), 'test');
+        $this->assertSame($event->getPersonalData()->getLastName(), 'test');
     }
 
     protected function setUp(): void

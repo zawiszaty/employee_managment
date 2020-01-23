@@ -6,9 +6,9 @@ namespace App\module\Employee\tests\Application\Command\GenerateRaport\Salary\Ge
 
 use App\Infrastructure\Domain\AggregateRootId;
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
-use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesCommand;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler;
+use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Domain\Entity\SalaryReport;
 use App\module\Employee\Domain\Event\EmployeeSalaryReportForAllEmployeesGeneratedEvent;
 use App\module\Employee\Domain\ValueObject\Reward;

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\module\Employee\tests\Application\Command\GenerateRaport\Salary\GenerateSalaryReport;
 
 use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
-use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeCommand;
 use App\module\Employee\Application\Command\GenerateRaport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeHandler;
+use App\module\Employee\Application\EmployeeApi;
 use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\Entity\WorkedDay;
 use App\module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;

@@ -11,12 +11,10 @@ use PHPUnit\Framework\TestCase;
 
 final class TestCommandBus extends CommandBus
 {
-
 }
 
 final class TestCommand
 {
-
 }
 
 final class TestHandler extends CommandHandler
@@ -25,7 +23,7 @@ final class TestHandler extends CommandHandler
 
     public function handle(TestCommand $command): void
     {
-        $this->id++;
+        ++$this->id;
     }
 
     public function getId(): int
@@ -52,4 +50,3 @@ final class CommandHandlerTest extends TestCase
         $commandBus->handle(new TestCommand());
     }
 }
-    

@@ -7,6 +7,7 @@ namespace App\module\Employee\Domain\Entity;
 use App\Infrastructure\Domain\Assertion\Assertion;
 use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\Uuid;
+use DateTimeImmutable;
 
 final class WorkedDay
 {
@@ -14,11 +15,11 @@ final class WorkedDay
 
     private int $hoursAmount;
 
-    private Clock $clock;
+    private DateTimeImmutable $clock;
 
     private function __construct(
         Uuid $id,
-        Clock $clock,
+        DateTimeImmutable $clock,
         int $hoursAmount
     ) {
         $this->id = $id;
@@ -26,12 +27,12 @@ final class WorkedDay
         $this->clock = $clock;
     }
 
-    public static function create(int $hoursAmount): self
+    public static function create(int $hoursAmount, Clock $clock): self
     {
         Assertion::greaterThan($hoursAmount, -1);
         Assertion::lessThan($hoursAmount, 25);
 
-        return new static(Uuid::generate(), Clock\SystemClock::system(), $hoursAmount);
+        return new static(Uuid::generate(), $clock->currentDateTime(), $hoursAmount);
     }
 
     public function getHoursAmount(): int
@@ -39,7 +40,7 @@ final class WorkedDay
         return $this->hoursAmount;
     }
 
-    public function getClock(): Clock
+    public function getClock(): DateTimeImmutable
     {
         return $this->clock;
     }

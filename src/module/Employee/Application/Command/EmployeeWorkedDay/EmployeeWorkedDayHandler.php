@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\module\Employee\Application\Command\EmployeeWorkedDay;
 
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\CommandHandler;
 use App\module\Employee\Domain\Employee;
 use App\module\Employee\Domain\EmployeeRepositoryInterface;
@@ -23,7 +24,7 @@ class EmployeeWorkedDayHandler extends CommandHandler
     {
         /** @var Employee $employee */
         $employee = $this->employeeRepository->get(AggregateRootId::fromString($command->getEmployeeId()));
-        $employee->workedDay(WorkedDay::create($command->getHoursAmount()));
+        $employee->workedDay(WorkedDay::create($command->getHoursAmount(), Clock::system()));
         $this->employeeRepository->apply($employee);
         $this->employeeRepository->save();
     }

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\Application;
 
 use App\Infrastructure\Domain\CommandHandler;
@@ -30,9 +29,8 @@ class CommandBus
         $commandHandler[count($commandHandler) - 1] = str_replace('Command', 'Handler', $commandHandler[count($commandHandler) - 1]);
         $commandHandler = implode('\\', $commandHandler);
 
-        if (false === array_key_exists($commandHandler,$this->commandsHandlers)) {
+        if (false === array_key_exists($commandHandler, $this->commandsHandlers)) {
             throw new DomainException('Handler not Found');
-
         }
         $handler = $this->commandsHandlers[$commandHandler];
 
