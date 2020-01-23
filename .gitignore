@@ -4,3 +4,12 @@ vendor
 build
 .php_cs.cache
 .tmp
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/web/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###

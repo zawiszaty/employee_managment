@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\tests\Infrastructure\File;
+namespace App\Infrastructure\Tests\Infrastructure\File;
 
 use App\Infrastructure\Infrastructure\File\FileMover;
 use PHPUnit\Framework\TestCase;

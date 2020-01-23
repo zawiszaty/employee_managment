@@ -17,7 +17,16 @@
         "ramsey/uuid": "^3.9",
         "beberlei/assert": "^3.2",
         "myclabs/php-enum": "^1.7",
-        "mpdf/mpdf": "^8.0"
+        "mpdf/mpdf": "^8.0",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/flex": "^1.6",
+        "symfony/config": "^5.0",
+        "symfony/yaml": "^5.0",
+        "symfony/console": "^5.0",
+        "symfony/cache": "^5.0",
+        "symfony/framework-bundle": "^5.0",
+        "symfony/dotenv": "^5.0",
+        "guzzlehttp/guzzle": "^6.5"
     },
     "autoload": {
         "psr-4": {
@@ -31,6 +40,10 @@
         }
     ],
     "scripts": {
-        "test": "vendor/bin/phpunit && vendor/bin/roave-no-leaks"
+        "test": "vendor/bin/roave-no-leaks",
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        }
     }
 }

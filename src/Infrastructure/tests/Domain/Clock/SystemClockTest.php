@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\tests\Domain\Clock;
+namespace App\Infrastructure\Tests\Domain\Clock;
 
 use App\Infrastructure\Domain\Clock\SystemClock;
 use PHPUnit\Framework\TestCase;

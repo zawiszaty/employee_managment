@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\tests;
+namespace App\Infrastructure\Tests;
 
 use App\Infrastructure\Application\CommandBus;
 use App\Infrastructure\Domain\CommandHandler;

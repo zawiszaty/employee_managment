@@ -1,0 +1,32 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{Module/Employee/Tests}'
+
+    App\Module\Employee\UI\HTTP\REST\:
+        resource: '../src/Module/Employee/UI/HTTP/REST'
+        tags: ['controller.service_arguments']
+
+    App\Module\Employee\Application\EmployeeApi:
+        calls:
+            - method: addHandler
+              arguments:
+                  - '@App\Module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler'
+            - method: addHandler
+              arguments:
+                  - '@App\Module\Employee\Application\Command\EmployeeSaleProduct\EmployeeSaleProductHandler'
+            - method: addHandler
+              arguments:
+                  - '@App\Module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayHandler'
+            - method: addHandler
+              arguments:
+                  - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
+            - method: addHandler
+              arguments:
+                  - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
