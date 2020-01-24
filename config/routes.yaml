@@ -1,3 +1,0 @@
-controllers:
-    resource: '../src/Module/Employee/UI/HTTP/REST/'
-    type:     annotation

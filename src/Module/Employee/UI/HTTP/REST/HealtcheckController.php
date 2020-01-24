@@ -15,6 +15,6 @@ final class HealtcheckController extends AbstractController
      */
     public function getEmployees(): Response
     {
-        return new Response(null);
+        return new Response(null, 200);
     }
 }
