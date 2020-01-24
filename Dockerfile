@@ -9,6 +9,7 @@ RUN apk update && \
         unzip \
         zip \
         nginx \
+        bash \
         libpng-dev \
         && pecl install xdebug-2.9.0 \
   		&& docker-php-ext-install zip \
