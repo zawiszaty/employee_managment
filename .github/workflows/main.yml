@@ -9,9 +9,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Build the docker-compose stack
-        run: cp .env.dist .env && docker-compose up -d
-      - run: ./.docker/wait_for_nginx.sh
+      - name: env
+        run: cp .env.dist .env
+      - run: make start
       - run: docker-compose exec php php composer.phar test
       - name: Coveralls
         run: docker-compose exec php export COVERALLS_RUN_LOCALLY=1 && export COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }} && ./vendor/bin/php-coveralls -v
