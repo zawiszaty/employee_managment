@@ -10,7 +10,6 @@ RUN apk update && \
         zip \
         nginx \
         libpng-dev \
-        bash \
         && pecl install xdebug-2.9.0 \
   		&& docker-php-ext-install zip \
   		&& docker-php-ext-install pdo_mysql \
@@ -21,3 +20,4 @@ COPY ./.docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /var/www/html
 
+ENTRYPOINT ["/var/www/html/.docker/entrypoint.sh"]
