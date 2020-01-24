@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  php:
+      build:
+          context: ./
+          dockerfile: ./Dockerfile
+      volumes:
+          - ./:/var/www/html:delegated
+      env_file:
+          - .env
+      ports:
+          - "9999:80"

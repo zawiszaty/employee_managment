@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\Infrastructure\Symfony;
-
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;

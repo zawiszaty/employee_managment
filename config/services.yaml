@@ -7,7 +7,7 @@ services:
 
     App\:
         resource: '../src/*'
-        exclude: '../src/{Module/Employee/Tests}'
+        exclude: '../src/{Module/Employee/Tests,Infrastructure/tests}'
 
     App\Module\Employee\UI\HTTP\REST\:
         resource: '../src/Module/Employee/UI/HTTP/REST'
