@@ -11,10 +11,7 @@ jobs:
         uses: actions/checkout@v1
       - name: Build the docker-compose stack
         run: cp .env.dist .env && docker-compose up -d
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '30s'
+      - run: ./.docker/wait_for_nginx.sh
       - run: docker-compose exec php php composer.phar test
       - name: Coveralls
         run: docker-compose exec php export COVERALLS_RUN_LOCALLY=1 && export COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }} && ./vendor/bin/php-coveralls -v
