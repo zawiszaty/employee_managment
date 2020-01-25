@@ -5,3 +5,7 @@ start:
 .Phony: php
 php:
 	docker-compose exec php /bin/bash
+
+.Phony: test
+test:
+	docker-compose exec -T php php composer.phar test
