@@ -12,12 +12,12 @@ final class EmployeeControllerTest extends UITestCase
     {
         $response = $this->client->put($this->router->generate('create_empployee'), [
             'json' => [
-                'first_name'                   => 'test',
-                'last_name'                    => 'test',
-                'address'                      => 'test',
+                'first_name' => 'test',
+                'last_name' => 'test',
+                'address' => 'test',
                 'remuneration_calculation_way' => 'test',
-                'salary'                       => 200.0,
-            ]
+                'salary' => 200.0,
+            ],
         ]);
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\Infrastructure;
-
 
 use App\Module\Employee\Domain\Event\EmployeeWasCreatedEvent;
 use App\Module\Employee\Infrastructure\Projection\EmployeeProjection;
@@ -16,7 +14,7 @@ class ProjectorConfig
     public function __construct()
     {
         $this->config = [
-            EmployeeWasCreatedEvent::class => EmployeeProjection::class . ':handleEmployeeWasCreatedEvent',
+            EmployeeWasCreatedEvent::class => EmployeeProjection::class.':handleEmployeeWasCreatedEvent',
         ];
     }
 

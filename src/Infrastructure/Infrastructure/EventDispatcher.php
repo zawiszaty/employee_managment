@@ -14,8 +14,7 @@ final class EventDispatcher implements \App\Infrastructure\Domain\EventDispatche
     public function dispatch(Event $event): void
     {
         array_map(static function (EventPublisher $eventPublisher) use ($event) {
-            if ($eventPublisher->supports($event))
-            {
+            if ($eventPublisher->supports($event)) {
                 $eventPublisher->dispatch($event);
             }
         }, $this->eventsPublishers);

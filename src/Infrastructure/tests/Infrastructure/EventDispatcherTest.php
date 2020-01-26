@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\tests\Infrastructure;
-
 
 use App\Infrastructure\Infrastructure\EventDispatcher;
 use PHPStan\Testing\TestCase;
 
 class Event implements \App\Infrastructure\Domain\Event
 {
-
 }
 
 class EventPublisher implements \App\Infrastructure\Domain\EventPublisher
@@ -20,12 +17,12 @@ class EventPublisher implements \App\Infrastructure\Domain\EventPublisher
 
     public function dispatch(\App\Infrastructure\Domain\Event $event): void
     {
-        $this->counter++;
+        ++$this->counter;
     }
 
     public function supports(\App\Infrastructure\Domain\Event $event): bool
     {
-        return get_class($event) === Event::class;
+        return Event::class === get_class($event);
     }
 
     public function getCounter(): int
@@ -43,7 +40,7 @@ final class EventDispatcherTest extends TestCase
     protected function setUp(): void
     {
         $this->dispatcher = new EventDispatcher();
-        $this->publisher  = new EventPublisher();
+        $this->publisher = new EventPublisher();
         $this->dispatcher->addEventPublisher($this->publisher);
     }
 

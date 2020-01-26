@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\UI\HTTP\REST\Request;
 
-use phpDocumentor\Reflection\Element;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 final class CreateEmployeeRequest implements RequestDTOInterface
 {
@@ -44,11 +41,11 @@ final class CreateEmployeeRequest implements RequestDTOInterface
 
     public function __construct(Request $request)
     {
-        $this->firstName                  = $request->get('first_name');
-        $this->lastName                   = $request->get('last_name');
-        $this->address                    = $request->get('address');
+        $this->firstName = $request->get('first_name');
+        $this->lastName = $request->get('last_name');
+        $this->address = $request->get('address');
         $this->remunerationCalculationWay = $request->get('remuneration_calculation_way');
-        $this->salary                     = (float) $request->get('salary');
+        $this->salary = (float) $request->get('salary');
     }
 
     public function getFirstName(): string

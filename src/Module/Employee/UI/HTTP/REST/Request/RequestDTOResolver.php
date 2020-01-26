@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\UI\HTTP\REST\Request;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -24,8 +23,7 @@ final class RequestDTOResolver implements ArgumentValueResolverInterface
     {
         $reflection = new \ReflectionClass($argument->getType());
 
-        if ($reflection->implementsInterface(RequestDTOInterface::class))
-        {
+        if ($reflection->implementsInterface(RequestDTOInterface::class)) {
             return true;
         }
 
@@ -35,12 +33,11 @@ final class RequestDTOResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument)
     {
         $class = $argument->getType();
-        $dto   = new $class($request);
+        $dto = new $class($request);
 
         $errors = $this->validator->validate($dto);
 
-        if (count($errors) > 0)
-        {
+        if (count($errors) > 0) {
             throw new BadRequestHttpException((string) $errors);
         }
 

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\UI\HTTP\REST;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -35,11 +34,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
     private function getErrorMessage(\Throwable $exception, Response $response): array
     {
         $error = [
-            'errors'=> [
-                'title'     => str_replace('\\', '.', \get_class($exception)),
-                'detail'    => $this->getExceptionMessage($exception),
-                'code'      => $exception->getCode(),
-                'status'    => $response->getStatusCode(),
+            'errors' => [
+                'title' => str_replace('\\', '.', \get_class($exception)),
+                'detail' => $this->getExceptionMessage($exception),
+                'code' => $exception->getCode(),
+                'status' => $response->getStatusCode(),
             ],
         ];
 
@@ -48,11 +47,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
                 $error,
                 [
                     'meta' => [
-                        'file'          => $exception->getFile(),
-                        'line'          => $exception->getLine(),
-                        'message'       => $exception->getMessage(),
-                        'trace'         => $exception->getTrace(),
-                        'traceString'   => $exception->getTraceAsString(),
+                        'file' => $exception->getFile(),
+                        'line' => $exception->getLine(),
+                        'message' => $exception->getMessage(),
+                        'trace' => $exception->getTrace(),
+                        'traceString' => $exception->getTraceAsString(),
                     ],
                 ]
             );

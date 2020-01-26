@@ -19,7 +19,7 @@ class UITestCase extends WebTestCase
         self::bootKernel();
         $this->router = self::$kernel->getContainer()->get('router');
         $this->client = new Client([
-            'base_uri'    => 'http://127.0.0.1/',
+            'base_uri' => 'http://127.0.0.1/',
             'http_errors' => false,
         ]);
     }

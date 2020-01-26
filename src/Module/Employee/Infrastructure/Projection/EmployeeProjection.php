@@ -18,9 +18,8 @@ class EmployeeProjection
     public function __construct(PDFGenerator $PDFGenerator, FileMoverInterface $fileMover)
     {
         $this->PDFGenerator = $PDFGenerator;
-        $this->fileMover    = $fileMover;
+        $this->fileMover = $fileMover;
     }
-
 
     public function handleEmployeeWasCreatedEvent(EmployeeWasCreatedEvent $event): void
     {
