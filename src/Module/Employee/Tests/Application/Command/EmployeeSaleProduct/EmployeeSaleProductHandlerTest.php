@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Tests\Application\Command\EmployeeSaleProduct;
 
-use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\Infrastructure\Infrastructure\FakeEventDispatcher;
 use App\Module\Employee\Application\Command\EmployeeSaleProduct\EmployeeSaleProductCommand;
 use App\Module\Employee\Application\Command\EmployeeSaleProduct\EmployeeSaleProductHandler;
 use App\Module\Employee\Application\EmployeeApi;
@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EmployeeSaleProductHandlerTest extends TestCase
 {
-    private InMemoryEventDispatcher $eventDispatcher;
+    private FakeEventDispatcher $eventDispatcher;
 
     private InMemoryEmployeeAggregateRepository $repo;
 
@@ -46,7 +46,7 @@ final class EmployeeSaleProductHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher = new InMemoryEventDispatcher();
+        $this->eventDispatcher = new FakeEventDispatcher();
         $this->repo = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
         $employeeSaleProductHandler = new EmployeeSaleProductHandler($this->repo);
         $this->api = new EmployeeApi();

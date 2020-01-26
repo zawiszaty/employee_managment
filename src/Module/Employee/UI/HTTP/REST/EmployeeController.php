@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Employee\UI\HTTP\REST;
 
 use App\Module\Employee\Application\EmployeeAPIInterface;
+use App\Module\Employee\UI\HTTP\REST\Request\CreateEmployeeRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,8 +40,11 @@ final class EmployeeController extends AbstractController
     /**
      * @Route("/api/v1/employee", name="create_empployee", methods={"PUT"})
      */
-    public function createEmployee(): Response
+    public function createEmployee(CreateEmployeeRequest $request): Response
     {
+//        $this->employeeAPI->handle(new CreateEmployeeCommand(
+//
+//        ));
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }

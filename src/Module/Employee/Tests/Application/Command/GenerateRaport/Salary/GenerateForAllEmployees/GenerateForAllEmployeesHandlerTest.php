@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Employee\Tests\Application\Command\GenerateReport\Salary\GenerateForAllEmployees;
 
 use App\Infrastructure\Domain\AggregateRootId;
-use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\Infrastructure\Infrastructure\FakeEventDispatcher;
 use App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesCommand;
 use App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler;
 use App\Module\Employee\Application\EmployeeApi;
@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 final class GenerateForAllEmployeesHandlerTest extends TestCase
 {
-    private InMemoryEventDispatcher $eventDispatcher;
+    private FakeEventDispatcher $eventDispatcher;
 
     private InMemorySalaryReportRepository $repository;
 
@@ -25,7 +25,7 @@ final class GenerateForAllEmployeesHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher = new InMemoryEventDispatcher();
+        $this->eventDispatcher = new FakeEventDispatcher();
         $this->repository = new InMemorySalaryReportRepository();
         $handler = new GenerateForAllEmployeesHandler($this->repository, $this->eventDispatcher);
 

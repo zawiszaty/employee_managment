@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Tests\Application\Command\EmployeeWorkedDay;
 
-use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\Infrastructure\Infrastructure\FakeEventDispatcher;
 use App\Module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayCommand;
 use App\Module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayHandler;
 use App\Module\Employee\Application\EmployeeApi;
@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EmployeeWorkedDayHandlerTest extends TestCase
 {
-    private InMemoryEventDispatcher $eventDispatcher;
+    private FakeEventDispatcher $eventDispatcher;
 
     private InMemoryEmployeeAggregateRepository $repo;
 
@@ -39,7 +39,7 @@ final class EmployeeWorkedDayHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher = new InMemoryEventDispatcher();
+        $this->eventDispatcher = new FakeEventDispatcher();
         $this->repo = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
         $employeeWorkedDayHandler = new EmployeeWorkedDayHandler($this->repo);
         $this->api = new EmployeeApi();

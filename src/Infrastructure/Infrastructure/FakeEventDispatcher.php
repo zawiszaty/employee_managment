@@ -7,7 +7,7 @@ namespace App\Infrastructure\Infrastructure;
 use App\Infrastructure\Domain\Event;
 use App\Infrastructure\Domain\EventDispatcher;
 
-final class InMemoryEventDispatcher implements EventDispatcher
+final class FakeEventDispatcher implements EventDispatcher
 {
     private array $events;
 

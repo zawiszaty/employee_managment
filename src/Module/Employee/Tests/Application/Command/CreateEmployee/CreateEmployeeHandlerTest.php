@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Tests\Application\Command\CreateEmployee;
 
-use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\Infrastructure\Infrastructure\FakeEventDispatcher;
 use App\Module\Employee\Application\Command\CreateEmployee\CreateEmployeeCommand;
 use App\Module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler;
 use App\Module\Employee\Application\EmployeeApi;
@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CreateEmployeeHandlerTest extends TestCase
 {
-    private InMemoryEventDispatcher $eventDispatcher;
+    private FakeEventDispatcher $eventDispatcher;
 
     private EmployeeApi $api;
 
@@ -38,7 +38,7 @@ final class CreateEmployeeHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher = new InMemoryEventDispatcher();
+        $this->eventDispatcher = new FakeEventDispatcher();
         $createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeAggregateRepository($this->eventDispatcher));
         $this->api = new EmployeeApi();
         $this->api->addHandler($createEmployeeHandler);

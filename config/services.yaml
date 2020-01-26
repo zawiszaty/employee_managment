@@ -15,18 +15,38 @@ services:
 
     App\Module\Employee\Application\EmployeeApi:
         calls:
-            - method: addHandler
-              arguments:
-                  - '@App\Module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler'
-            - method: addHandler
-              arguments:
-                  - '@App\Module\Employee\Application\Command\EmployeeSaleProduct\EmployeeSaleProductHandler'
-            - method: addHandler
-              arguments:
-                  - '@App\Module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayHandler'
-            - method: addHandler
-              arguments:
-                  - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
-            - method: addHandler
-              arguments:
-                  - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
+            -   method: addHandler
+                arguments:
+                    - '@App\Module\Employee\Application\Command\CreateEmployee\CreateEmployeeHandler'
+            -   method: addHandler
+                arguments:
+                    - '@App\Module\Employee\Application\Command\EmployeeSaleProduct\EmployeeSaleProductHandler'
+            -   method: addHandler
+                arguments:
+                    - '@App\Module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayHandler'
+            -   method: addHandler
+                arguments:
+                    - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
+            -   method: addHandler
+                arguments:
+                    - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
+
+    App\Module\Employee\UI\HTTP\REST\JsonBodyParserSubscriber:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest', priority: 100}
+
+    App\Infrastructure\Domain\EventDispatcher: '@App\Infrastructure\Infrastructure\EventDispatcher'
+
+    App\Module\Employee\UI\HTTP\REST\Request\:
+        resource: '../src/Module/Employee/UI/HTTP/REST/Request'
+        autowire: false
+
+    App\Module\Employee\UI\HTTP\REST\Request\RequestDTOResolver:
+        arguments:
+            - '@validator'
+        tags:
+            - { name: controller.request_value_resolver, priority: 50 }
+
+    App\Module\Employee\UI\HTTP\REST\ExceptionSubscriber:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.exception' }

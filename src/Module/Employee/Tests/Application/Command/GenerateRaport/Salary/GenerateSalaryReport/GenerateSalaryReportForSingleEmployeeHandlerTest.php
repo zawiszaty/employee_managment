@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Employee\Tests\Application\Command\GenerateReport\Salary\GenerateSalaryReport;
 
 use App\Infrastructure\Domain\Clock;
-use App\Infrastructure\Infrastructure\InMemoryEventDispatcher;
+use App\Infrastructure\Infrastructure\FakeEventDispatcher;
 use App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeCommand;
 use App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeHandler;
 use App\Module\Employee\Application\EmployeeApi;
@@ -23,13 +23,13 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
 
     private Employee $employee;
 
-    private InMemoryEventDispatcher $eventDispatcher;
+    private FakeEventDispatcher $eventDispatcher;
 
     private EmployeeApi $api;
 
     protected function setUp(): void
     {
-        $this->eventDispatcher = new InMemoryEventDispatcher();
+        $this->eventDispatcher = new FakeEventDispatcher();
         $this->repository = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
         $handler = new GenerateSalaryReportForSingleEmployeeHandler($this->repository, new CalculateRewardPolicyFactory());
         $this->employee = EmployeeMother::createEmployeeM();
