@@ -22,7 +22,7 @@ final class EmployeeAggregateRepository implements EmployeeRepositoryInterface
     public function __construct(EventDispatcher $eventDispatcher, Projector $projector)
     {
         $this->eventDispatcher = $eventDispatcher;
-        $this->projector       = $projector;
+        $this->projector = $projector;
     }
 
     public function apply(Employee $aggregateRoot): void
@@ -37,8 +37,7 @@ final class EmployeeAggregateRepository implements EmployeeRepositoryInterface
 
     public function save(): void
     {
-        foreach ($this->events as $event)
-        {
+        foreach ($this->events as $event) {
             $this->projector->project($event);
             $this->eventDispatcher->dispatch($event);
         }

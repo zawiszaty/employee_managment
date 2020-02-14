@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\Infrastructure\ReadModel\View;
-
 
 use Doctrine\ORM\Mapping as ORM;
 

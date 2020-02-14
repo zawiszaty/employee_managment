@@ -78,7 +78,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourlyWithCommission(): void
     {
         $employee = EmployeeMother::createEmployeeMC();
-        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $clock = Clock::fixed(new DateTimeImmutable('01-01-2012'));
         $employee->workedDay(WorkedDay::create(10, $clock));
         $employee->sale(Commission::createFromFloat(100));
         $employee->generateSalaryReport(01, new CalculateMonthlyWithCommissionRewardPolicy());

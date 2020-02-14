@@ -31,13 +31,12 @@ final class EmployeeWasCreatedEvent implements Event
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    )
-    {
-        $this->eventId                    = EventId::generate();
-        $this->personalData               = $personalData;
+    ) {
+        $this->eventId = EventId::generate();
+        $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
-        $this->aggregateRootId            = $aggregateRootId;
-        $this->salary                     = $salary;
+        $this->aggregateRootId = $aggregateRootId;
+        $this->salary = $salary;
     }
 
     public function getEventId(): EventId

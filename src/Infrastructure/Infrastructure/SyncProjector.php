@@ -16,13 +16,13 @@ final class SyncProjector implements Projector
 
     public function __construct(ProjectorConfig $config, ContainerInterface $container)
     {
-        $this->config    = $config;
+        $this->config = $config;
         $this->container = $container;
     }
 
     public function project(Event $event): void
     {
-        $config     = explode(':', $this->config->getConfig(get_class($event)));
+        $config = explode(':', $this->config->getConfig(get_class($event)));
         $projection = $this->container->get($config[0]);
         $projection->{$config[1]}($event);
     }

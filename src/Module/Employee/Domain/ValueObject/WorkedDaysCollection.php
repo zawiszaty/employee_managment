@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\Domain\ValueObject;
-
 
 use App\Infrastructure\Domain\Clock;
 use App\Module\Employee\Domain\Entity\WorkedDay;
@@ -29,8 +27,7 @@ final class WorkedDaysCollection
         $workedHours = 0;
 
         array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-            if ((int) $workedDay->getClock()->format('m') === $month->currentDateTime()->format('m'))
-            {
+            if ((int) $workedDay->getClock()->format('m') === $month->currentDateTime()->format('m')) {
                 $workedHours += $workedDay->getHoursAmount();
             }
         }, $this->workedDays);

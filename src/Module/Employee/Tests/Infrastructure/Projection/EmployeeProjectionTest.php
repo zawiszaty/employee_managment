@@ -25,7 +25,7 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->projection         = self::$container->get(EmployeeProjection::class);
+        $this->projection = self::$container->get(EmployeeProjection::class);
         $this->employeeRepository = $this->entityManager->getRepository(EmployeeView::class);
     }
 
@@ -38,7 +38,6 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
                 PersonalData::createFromString('test', 'test', 'test'),
                 RemunerationCalculationWay::HOURLY(),
                 Salary::createFromFloat(20.0),
-
             )
         );
         self::assertCount(1, $this->employeeRepository->findAll());

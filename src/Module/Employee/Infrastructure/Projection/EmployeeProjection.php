@@ -24,10 +24,9 @@ class EmployeeProjection
         PDFGenerator $PDFGenerator,
         FileMoverInterface $fileMover,
         EntityManagerInterface $entityManager
-    )
-    {
-        $this->PDFGenerator  = $PDFGenerator;
-        $this->fileMover     = $fileMover;
+    ) {
+        $this->PDFGenerator = $PDFGenerator;
+        $this->fileMover = $fileMover;
         $this->entityManager = $entityManager;
     }
 

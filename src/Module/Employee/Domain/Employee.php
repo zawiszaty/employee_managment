@@ -43,11 +43,11 @@ final class Employee extends AggregateRoot
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
     ) {
-        $this->id                         = AggregateRootId::generate();
-        $this->personalData               = $personalData;
+        $this->id = AggregateRootId::generate();
+        $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
-        $this->salary                     = $salary;
-        $this->workedDaysCollection       = new WorkedDaysCollection();
+        $this->salary = $salary;
+        $this->workedDaysCollection = new WorkedDaysCollection();
     }
 
     public static function create(
@@ -97,8 +97,8 @@ final class Employee extends AggregateRoot
 
     public function generateSalaryReport(Clock $month, CalculateRewardPolicyInterface $calculateRewardPolicy): void
     {
-        $workedHours        = $this->workedDaysCollection->sumHoursAmount($month);
-        $reward             = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
+        $workedHours = $this->workedDaysCollection->sumHoursAmount($month);
+        $reward = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
         $this->salaryReport = SalaryReport::create($this->getId(), $reward, $month, $workedHours);
         $this->record(
             new EmployeeSalaryReportGeneratedEvent(
