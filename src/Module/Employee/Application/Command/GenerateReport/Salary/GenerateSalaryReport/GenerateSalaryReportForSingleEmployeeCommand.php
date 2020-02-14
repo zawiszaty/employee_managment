@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateSalaryReport;
 
+use DateTimeImmutable;
+
 class GenerateSalaryReportForSingleEmployeeCommand
 {
     private string $employeeId;
 
-    private int $month;
+    private DateTimeImmutable $month;
 
-    public function __construct(string $employeeId, int $month)
+    public function __construct(string $employeeId, DateTimeImmutable $month)
     {
         $this->employeeId = $employeeId;
         $this->month = $month;
@@ -21,7 +23,7 @@ class GenerateSalaryReportForSingleEmployeeCommand
         return $this->employeeId;
     }
 
-    public function getMonth(): int
+    public function getTime(): DateTimeImmutable
     {
         return $this->month;
     }

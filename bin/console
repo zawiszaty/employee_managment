@@ -4,8 +4,7 @@
 use App\Infrastructure\Infrastructure\Symfony\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
-
-require dirname(__DIR__) . '/vendor/autoload.php';
+use Symfony\Component\Debug\Debug;
 
 if (false === in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
     echo 'Warning: The console should be invoked via the CLI version of PHP, not the '.\PHP_SAPI.' SAPI'.\PHP_EOL;
@@ -30,6 +29,14 @@ if ($input->hasParameterOption('--no-debug', true)) {
 
 require dirname(__DIR__) . '/config/bootstrap.php';
 
-$kernel      = new Kernel('dev', true);
+if ($_SERVER['APP_DEBUG']) {
+    umask(0000);
+
+    if (class_exists(Debug::class)) {
+        Debug::enable();
+    }
+}
+
+$kernel = new Kernel('test', (bool) $_SERVER['APP_DEBUG']);
 $application = new Application($kernel);
 $application->run($input);

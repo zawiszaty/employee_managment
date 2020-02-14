@@ -11,9 +11,11 @@ RUN apk update && \
         nginx \
         bash \
         libpng-dev \
-        && pecl install xdebug-2.9.0 \
+        postgresql-dev \
+        rabbitmq-c rabbitmq-c-dev \
+        && pecl install -o -f xdebug-2.9.0  \
   		&& docker-php-ext-install zip \
-  		&& docker-php-ext-install pdo_mysql \
+  		&& docker-php-ext-install pdo pdo_pgsql \
   		&& docker-php-ext-install bcmath sockets pcntl gd \
   		&& docker-php-ext-enable xdebug
 

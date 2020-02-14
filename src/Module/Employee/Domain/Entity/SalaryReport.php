@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Employee\Domain\Entity;
 
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\Clock;
 use App\Module\Employee\Domain\ValueObject\Reward;
 
 final class SalaryReport
@@ -13,11 +14,11 @@ final class SalaryReport
 
     private Reward $reward;
 
-    private int $month;
+    private Clock $month;
 
     private int $hoursAmount;
 
-    private function __construct(AggregateRootId $employeeId, Reward $reward, int $month, int $hoursAmount)
+    private function __construct(AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount)
     {
         $this->employeeId = $employeeId;
         $this->reward = $reward;
@@ -25,7 +26,7 @@ final class SalaryReport
         $this->hoursAmount = $hoursAmount;
     }
 
-    public static function create(AggregateRootId $employeeId, Reward $reward, int $month, int $hoursAmount): self
+    public static function create(AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount): self
     {
         return new static($employeeId, $reward, $month, $hoursAmount);
     }
@@ -40,7 +41,7 @@ final class SalaryReport
         return $this->reward;
     }
 
-    public function getMonth(): int
+    public function getMonth(): Clock
     {
         return $this->month;
     }

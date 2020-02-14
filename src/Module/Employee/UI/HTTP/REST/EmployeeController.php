@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\UI\HTTP\REST;
 
+use App\Module\Employee\Application\Command\CreateEmployee\CreateEmployeeCommand;
 use App\Module\Employee\Application\EmployeeAPIInterface;
 use App\Module\Employee\UI\HTTP\REST\Request\CreateEmployeeRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,9 +43,14 @@ final class EmployeeController extends AbstractController
      */
     public function createEmployee(CreateEmployeeRequest $request): Response
     {
-//        $this->employeeAPI->handle(new CreateEmployeeCommand(
-//
-//        ));
+        $this->employeeAPI->handle(new CreateEmployeeCommand(
+            $request->getFirstName(),
+            $request->getLastName(),
+            $request->getAddress(),
+            $request->getRemunerationCalculationWay(),
+            $request->getSalary(),
+        ));
+
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }

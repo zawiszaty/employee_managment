@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateSalaryReport;
 
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\CommandHandler;
 use App\Module\Employee\Domain\Employee;
 use App\Module\Employee\Domain\EmployeeRepositoryInterface;
@@ -26,7 +27,7 @@ class GenerateSalaryReportForSingleEmployeeHandler extends CommandHandler
     {
         /** @var Employee $employee */
         $employee = $this->employeeRepository->get(AggregateRootId::fromString($command->getEmployeeId()));
-        $employee->generateSalaryReport($command->getMonth(), $this->calculateRewardPolicyFactory->getPolicy($employee->getRemunerationCalculationWay()));
+        $employee->generateSalaryReport(Clock::fixed($command->getTime()), $this->calculateRewardPolicyFactory->getPolicy($employee->getRemunerationCalculationWay()));
         $this->employeeRepository->apply($employee);
         $this->employeeRepository->save();
     }

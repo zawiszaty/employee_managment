@@ -4,23 +4,33 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Tests\UI\HTTP\REST;
 
-use GuzzleHttp\Client;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Routing\Router;
 
 class UITestCase extends WebTestCase
 {
-    protected Client $client;
+    protected KernelBrowser $client;
 
     protected Router $router;
 
+    protected EntityManagerInterface $entityManager;
+
     protected function setUp(): void
     {
-        self::bootKernel();
-        $this->router = self::$kernel->getContainer()->get('router');
-        $this->client = new Client([
-            'base_uri' => 'http://127.0.0.1/',
+        $this->client = self::createClient([
+            'environment' => 'test',
             'http_errors' => false,
         ]);
+        $this->client->disableReboot();
+        self::bootKernel();
+        $this->entityManager = self::$kernel->getContainer()->get('doctrine.orm.default_entity_manager');
+        $this->router = self::$kernel->getContainer()->get('router');
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
     }
 }

@@ -30,6 +30,7 @@ final class CreateEmployeeRequest implements RequestDTOInterface
     /**
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Assert\Choice({"hourly", "monthly", "monthly_with_commission"})
      */
     private $remunerationCalculationWay;
 

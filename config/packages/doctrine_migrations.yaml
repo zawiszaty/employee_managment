@@ -1,0 +1,3 @@
+doctrine_migrations:
+    dir_name: '%kernel.project_dir%/src/module/Employee/Infrastructure/Migrations'
+    namespace: DoctrineMigrations

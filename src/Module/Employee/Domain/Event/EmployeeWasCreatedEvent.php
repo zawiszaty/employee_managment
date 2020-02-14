@@ -9,14 +9,13 @@ use App\Infrastructure\Domain\Event;
 use App\Infrastructure\Domain\EventId;
 use App\Module\Employee\Domain\ValueObject\PersonalData;
 use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
+use App\Module\Employee\Domain\ValueObject\Salary;
 
 /**
  * @codeCoverageIgnore
  */
 final class EmployeeWasCreatedEvent implements Event
 {
-    private EventId $id;
-
     private EventId $eventId;
 
     private PersonalData $personalData;
@@ -25,20 +24,20 @@ final class EmployeeWasCreatedEvent implements Event
 
     private AggregateRootId $aggregateRootId;
 
+    private Salary $salary;
+
     public function __construct(
         AggregateRootId $aggregateRootId,
         PersonalData $personalData,
-        RemunerationCalculationWay $remunerationCalculationWay
-    ) {
-        $this->eventId = EventId::generate();
-        $this->personalData = $personalData;
-        $this->remunerationCalculationWay = $remunerationCalculationWay;
-        $this->aggregateRootId = $aggregateRootId;
-    }
-
-    public function getId(): EventId
+        RemunerationCalculationWay $remunerationCalculationWay,
+        Salary $salary
+    )
     {
-        return $this->id;
+        $this->eventId                    = EventId::generate();
+        $this->personalData               = $personalData;
+        $this->remunerationCalculationWay = $remunerationCalculationWay;
+        $this->aggregateRootId            = $aggregateRootId;
+        $this->salary                     = $salary;
     }
 
     public function getEventId(): EventId
@@ -59,5 +58,10 @@ final class EmployeeWasCreatedEvent implements Event
     public function getAggregateRootId(): AggregateRootId
     {
         return $this->aggregateRootId;
+    }
+
+    public function getSalary(): Salary
+    {
+        return $this->salary;
     }
 }

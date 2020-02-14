@@ -12,3 +12,37 @@ services:
           - .env
       ports:
           - "9999:80"
+      links:
+          - postgres
+
+  postgres:
+      image: postgres
+      environment:
+          - POSTGRES_PASSWORD=employee_managment
+          - POSTGRES_USER=employee_managment
+          - POSTGRES_DB=employee_managment
+      volumes:
+          - db_data:/var/lib/postgresql/data
+      ports:
+          - 9998:5432
+
+  rabbit:
+      image: "rabbitmq:3.8-rc-management-alpine"
+      environment:
+          RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+          RABBITMQ_DEFAULT_USER: "rabbitmq"
+          RABBITMQ_DEFAULT_PASS: "rabbitmq"
+          RABBITMQ_DEFAULT_VHOST: "/"
+      ports:
+          - "9997:15672"
+          - "9996:5672"
+
+  redis:
+      image: redis:5.0.5-alpine
+      ports:
+          - 9995:6379
+      environment:
+          - ALLOW_EMPTY_PASSWORD=yes
+
+volumes:
+  db_data:

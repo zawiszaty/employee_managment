@@ -15,6 +15,7 @@ use App\Module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
 use App\Module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateRewardPolicyFactory;
 use App\Module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use App\Module\Employee\Tests\TestDouble\EmployeeMother;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
@@ -46,7 +47,8 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
 
     public function testItGenerateReport(): void
     {
-        $this->api->handle(new GenerateSalaryReportForSingleEmployeeCommand($this->employee->getId()->toString(), 1));
+        $this->api->handle(new GenerateSalaryReportForSingleEmployeeCommand($this->employee->getId()
+            ->toString(), new DateTimeImmutable('1-01-2020')));
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(1, $events);
         $this->assertInstanceOf(EmployeeSalaryReportGeneratedEvent::class, $events[0]);

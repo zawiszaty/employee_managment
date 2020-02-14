@@ -5,10 +5,14 @@
 You must have installed docker and docker-compose locally 
 ### Linux or mac
 ```bash
+make env
+```
+```bash
 make start
 ```
 Wait few minutes, you can monitor installation status by `docker-compose logs -f` or run script `./.docker/wait_for_nginx.sh`
 ### Windows
+Copy .env.dist to .env
 ```bash
 docker-compose up -d
 ```

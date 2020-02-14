@@ -15,6 +15,7 @@ use App\Module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateMonthlyRewa
 use App\Module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateMonthlyWithCommissionRewardPolicy;
 use App\Module\Employee\Domain\ValueObject\Commission;
 use App\Module\Employee\Tests\TestDouble\EmployeeMother;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -51,7 +52,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportMonthly(): void
     {
         $employee = EmployeeMother::createEmployeeM();
-        $employee->workedDay(WorkedDay::create(10, Clock::system()));
+        $employee->workedDay(WorkedDay::create(10, Clock::fixed(new DateTimeImmutable('01-01-2012'))));
         $employee->generateSalaryReport(01, new CalculateMonthlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
@@ -64,7 +65,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourly(): void
     {
         $employee = EmployeeMother::createEmployeeH();
-        $employee->workedDay(WorkedDay::create(10, Clock::system()));
+        $employee->workedDay(WorkedDay::create(10, Clock::fixed(new DateTimeImmutable('01-01-2012'))));
         $employee->generateSalaryReport(01, new CalculateHourlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
@@ -77,7 +78,8 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourlyWithCommission(): void
     {
         $employee = EmployeeMother::createEmployeeMC();
-        $employee->workedDay(WorkedDay::create(10, Clock::system()));
+        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $employee->workedDay(WorkedDay::create(10, $clock));
         $employee->sale(Commission::createFromFloat(100));
         $employee->generateSalaryReport(01, new CalculateMonthlyWithCommissionRewardPolicy());
         $report = $employee->getSalaryReport();

@@ -6,12 +6,14 @@
 		 backupGlobals="false"
 		 colors="true"
 		 bootstrap="config/bootstrap.php"
+		 printerFile="vendor/jeroen/nyancat-phpunit-resultprinter/src/NyanCat/PHPUnit/ResultPrinter.php"
+		 printerClass="NyanCat\PHPUnit\ResultPrinter"
 >
 	<php>
 		<ini name="error_reporting" value="-1" />
 
         <!-- ###+ symfony/framework-bundle ### -->
-        <env name="APP_ENV" value="dev"/>
+        <env name="APP_ENV" value="test"/>
         <env name="APP_SECRET" value="5cdda1e3d98185a9049690512896dece"/>
         <!-- env name="TRUSTED_PROXIES" value="127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" -->
         <!-- env name="TRUSTED_HOSTS" value="'^localhost|example\.com$'" -->
@@ -34,4 +36,9 @@
 	<logging>
 		<log type="coverage-clover" target="build/logs/clover.xml"/>
 	</logging>
+
+	<extensions>
+		<extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
+	</extensions>
+
 </phpunit>

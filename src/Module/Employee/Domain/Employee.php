@@ -6,6 +6,7 @@ namespace App\Module\Employee\Domain;
 
 use App\Infrastructure\Domain\AggregateRoot;
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\EventId;
 use App\Module\Employee\Domain\Entity\SalaryReport;
 use App\Module\Employee\Domain\Entity\WorkedDay;
@@ -18,6 +19,7 @@ use App\Module\Employee\Domain\ValueObject\Commission;
 use App\Module\Employee\Domain\ValueObject\PersonalData;
 use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\Module\Employee\Domain\ValueObject\Salary;
+use App\Module\Employee\Domain\ValueObject\WorkedDaysCollection;
 
 final class Employee extends AggregateRoot
 {
@@ -30,8 +32,7 @@ final class Employee extends AggregateRoot
     /** @var array<Commission> */
     private array $commissions = [];
 
-    /** @var array<WorkedDay> */
-    private array $workedDays = [];
+    private WorkedDaysCollection $workedDaysCollection;
 
     private Salary $salary;
 
@@ -42,10 +43,11 @@ final class Employee extends AggregateRoot
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
     ) {
-        $this->id = AggregateRootId::generate();
-        $this->personalData = $personalData;
+        $this->id                         = AggregateRootId::generate();
+        $this->personalData               = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
-        $this->salary = $salary;
+        $this->salary                     = $salary;
+        $this->workedDaysCollection       = new WorkedDaysCollection();
     }
 
     public static function create(
@@ -62,6 +64,7 @@ final class Employee extends AggregateRoot
             $employee->id,
             $personalData,
             $remunerationCalculationWay,
+            $salary
         ));
 
         return $employee;
@@ -79,7 +82,7 @@ final class Employee extends AggregateRoot
 
     public function workedDay(WorkedDay $workedDay): void
     {
-        $this->workedDays[] = $workedDay;
+        $this->workedDaysCollection->push($workedDay);
         $this->record(new EmployeeWasWorkedDayEvent(
             EventId::generate(),
             $this->id,
@@ -92,16 +95,10 @@ final class Employee extends AggregateRoot
         return $this->id;
     }
 
-    public function generateSalaryReport(int $month, CalculateRewardPolicyInterface $calculateRewardPolicy): void
+    public function generateSalaryReport(Clock $month, CalculateRewardPolicyInterface $calculateRewardPolicy): void
     {
-        $workedHours = 0;
-
-        array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-            if ((int) $workedDay->getClock()->format('m') === $month) {
-                $workedHours += $workedDay->getHoursAmount();
-            }
-        }, $this->workedDays);
-        $reward = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
+        $workedHours        = $this->workedDaysCollection->sumHoursAmount($month);
+        $reward             = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
         $this->salaryReport = SalaryReport::create($this->getId(), $reward, $month, $workedHours);
         $this->record(
             new EmployeeSalaryReportGeneratedEvent(
