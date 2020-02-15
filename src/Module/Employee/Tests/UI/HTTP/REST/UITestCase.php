@@ -19,11 +19,7 @@ class UITestCase extends WebTestCase
 
     protected function setUp(): void
     {
-        $this->client = self::createClient([
-            'environment' => 'test',
-            'http_errors' => false,
-        ]);
-        $this->client->disableReboot();
+        $this->client = self::createClient();
         self::bootKernel();
         $this->entityManager = self::$kernel->getContainer()->get('doctrine.orm.default_entity_manager');
         $this->router = self::$kernel->getContainer()->get('router');

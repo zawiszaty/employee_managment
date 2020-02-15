@@ -34,6 +34,7 @@ class EmployeeTest extends TestCase
     public function testEmployeeSaleProduct(): void
     {
         $employee = EmployeeMother::createEmployeeMC();
+
         $employee->sale(Commission::createFromFloat(2.5));
 
         $this->assertCount(2, $employee->getUncommittedEvents());
@@ -43,6 +44,7 @@ class EmployeeTest extends TestCase
     public function testEmployeeWorkedDay(): void
     {
         $employee = EmployeeMother::createEmployeeMC();
+
         $employee->workedDay(WorkedDay::create(10, Clock::system()));
 
         $this->assertCount(2, $employee->getUncommittedEvents());
@@ -52,8 +54,10 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportMonthly(): void
     {
         $employee = EmployeeMother::createEmployeeM();
-        $employee->workedDay(WorkedDay::create(10, Clock::fixed(new DateTimeImmutable('01-01-2012'))));
-        $employee->generateSalaryReport(01, new CalculateMonthlyRewardPolicy());
+        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $employee->workedDay(WorkedDay::create(10, $clock));
+
+        $employee->generateSalaryReport($clock, new CalculateMonthlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
         $this->assertSame(10, $report->getHoursAmount());
@@ -65,8 +69,10 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourly(): void
     {
         $employee = EmployeeMother::createEmployeeH();
-        $employee->workedDay(WorkedDay::create(10, Clock::fixed(new DateTimeImmutable('01-01-2012'))));
-        $employee->generateSalaryReport(01, new CalculateHourlyRewardPolicy());
+        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $employee->workedDay(WorkedDay::create(10, $clock));
+
+        $employee->generateSalaryReport($clock, new CalculateHourlyRewardPolicy());
         $report = $employee->getSalaryReport();
 
         $this->assertSame(10, $report->getHoursAmount());
@@ -81,7 +87,8 @@ class EmployeeTest extends TestCase
         $clock = Clock::fixed(new DateTimeImmutable('01-01-2012'));
         $employee->workedDay(WorkedDay::create(10, $clock));
         $employee->sale(Commission::createFromFloat(100));
-        $employee->generateSalaryReport(01, new CalculateMonthlyWithCommissionRewardPolicy());
+
+        $employee->generateSalaryReport($clock, new CalculateMonthlyWithCommissionRewardPolicy());
         $report = $employee->getSalaryReport();
 
         $this->assertSame(10, $report->getHoursAmount());

@@ -27,7 +27,7 @@ final class WorkedDaysCollection
         $workedHours = 0;
 
         array_map(static function (WorkedDay $workedDay) use (&$workedHours, $month) {
-            if ((int) $workedDay->getClock()->format('m') === $month->currentDateTime()->format('m')) {
+            if ((int) $workedDay->getClock()->format('m') === (int) $month->currentDateTime()->format('m')) {
                 $workedHours += $workedDay->getHoursAmount();
             }
         }, $this->workedDays);

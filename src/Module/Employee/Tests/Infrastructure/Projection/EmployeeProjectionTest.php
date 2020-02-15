@@ -25,7 +25,8 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->projection = self::$container->get(EmployeeProjection::class);
+        $this->entityManager->beginTransaction();
+        $this->projection         = self::$container->get(EmployeeProjection::class);
         $this->employeeRepository = $this->entityManager->getRepository(EmployeeView::class);
     }
 
@@ -41,5 +42,11 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
             )
         );
         self::assertCount(1, $this->employeeRepository->findAll());
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        $this->entityManager->beginTransaction();
     }
 }

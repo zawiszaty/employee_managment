@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Infrastructure\Repository;
 
+use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\Uuid;
 use App\Infrastructure\Infrastructure\InMemoryRepository;
 use App\Module\Employee\Domain\Entity\SalaryReport;
@@ -16,13 +17,13 @@ final class InMemorySalaryReportRepository extends InMemoryRepository implements
         return parent::get($aggregateRootId);
     }
 
-    public function getByMonth(int $month): array
+    public function getByMonth(Clock $month): array
     {
         $reports = [];
 
         /** @var SalaryReport $aggregate */
         foreach ($this->aggregates as $aggregate) {
-            if ($aggregate->getMonth() === $month) {
+            if ($aggregate->getMonth()->currentDateTime()->format('m') === $month->currentDateTime()->format('m')) {
                 $reports[] = $aggregate;
             }
         }

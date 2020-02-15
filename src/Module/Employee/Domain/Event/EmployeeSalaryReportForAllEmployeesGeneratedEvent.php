@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Domain\Event;
 
+use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\Event;
 use App\Infrastructure\Domain\EventId;
 use App\Module\Employee\Domain\ValueObject\Reward;
@@ -17,13 +18,13 @@ class EmployeeSalaryReportForAllEmployeesGeneratedEvent implements Event
 
     private Reward $reward;
 
-    private int $month;
+    private Clock $month;
 
     private int $employeeAmounts;
 
     private int $hoursAmount;
 
-    public function __construct(Reward $reward, int $month, int $employeeAmounts, int $hoursAmount)
+    public function __construct(Reward $reward, Clock $month, int $employeeAmounts, int $hoursAmount)
     {
         $this->id = EventId::generate();
         $this->reward = $reward;
@@ -42,7 +43,7 @@ class EmployeeSalaryReportForAllEmployeesGeneratedEvent implements Event
         return $this->reward;
     }
 
-    public function getMonth(): int
+    public function getMonth(): Clock
     {
         return $this->month;
     }
