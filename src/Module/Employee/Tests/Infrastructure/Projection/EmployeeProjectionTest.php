@@ -26,7 +26,7 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
     {
         parent::setUp();
         $this->entityManager->beginTransaction();
-        $this->projection         = self::$container->get(EmployeeProjection::class);
+        $this->projection = self::$container->get(EmployeeProjection::class);
         $this->employeeRepository = $this->entityManager->getRepository(EmployeeView::class);
     }
 

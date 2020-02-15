@@ -54,7 +54,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportMonthly(): void
     {
         $employee = EmployeeMother::createEmployeeM();
-        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $clock = Clock::fixed(new DateTimeImmutable('01-01-2012'));
         $employee->workedDay(WorkedDay::create(10, $clock));
 
         $employee->generateSalaryReport($clock, new CalculateMonthlyRewardPolicy());
@@ -69,7 +69,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourly(): void
     {
         $employee = EmployeeMother::createEmployeeH();
-        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $clock = Clock::fixed(new DateTimeImmutable('01-01-2012'));
         $employee->workedDay(WorkedDay::create(10, $clock));
 
         $employee->generateSalaryReport($clock, new CalculateHourlyRewardPolicy());

@@ -19,3 +19,4 @@ env:
 .Phony: db
 db:
 	docker-compose exec php ./bin/console d:d:c --if-not-exists
+	docker-compose exec php ./bin/console d:m:m -n
