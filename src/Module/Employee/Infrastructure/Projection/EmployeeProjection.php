@@ -38,11 +38,11 @@ class EmployeeProjection
     public function handleEmployeeWasCreatedEvent(EmployeeWasCreatedEvent $event): void
     {
         $employee = (new EmployeeView())
-            ->setId($event->getAggregateRootId()->toString())
+            ->setId($event->getAggregateRootId()->getId())
             ->setFirstName($event->getPersonalData()->getFirstName())
             ->setLastName($event->getPersonalData()->getLastName())
             ->setAddress($event->getPersonalData()->getAddress())
-            ->setRemunerationCalculationWay($event->getRemunerationCalculationWay()->getValue())
+            ->setRemunerationCalculationWay($event->getRemunerationCalculationWay())
             ->setSalary($event->getSalary()->getAmount());
 
         $this->entityManager->persist($employee);

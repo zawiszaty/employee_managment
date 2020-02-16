@@ -41,12 +41,15 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
                 Salary::createFromFloat(20.0),
             )
         );
-        self::assertCount(1, $this->employeeRepository->findAll());
-    }
 
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        $this->entityManager->beginTransaction();
+        /** @var EmployeeView $employee */
+        $employee = $this->employeeRepository->findOneBy([]);
+
+        self::assertNotNull($employee);
+        $this->assertSame('test', $employee->getAddress());
+        $this->assertSame('test', $employee->getFirstName());
+        $this->assertSame('test', $employee->getLastName());
+        $this->assertTrue($employee->getRemunerationCalculationWay()->equals(RemunerationCalculationWay::HOURLY()));
+        $this->assertSame(20.0, $employee->getSalary());
     }
 }

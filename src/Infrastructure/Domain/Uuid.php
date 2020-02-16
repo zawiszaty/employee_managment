@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Infrastructure\Domain;
 
 use App\Infrastructure\Domain\Assertion\Assertion;
+use Ramsey\Uuid\Uuid as RamseyUuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @codeCoverageIgnore
  */
 class Uuid
 {
-    private string $id;
+    private UuidInterface $id;
 
     private function __construct()
     {
@@ -19,8 +21,8 @@ class Uuid
 
     public static function generate(): self
     {
-        $id = new static();
-        $id->id = \Ramsey\Uuid\Uuid::uuid4()->toString();
+        $id     = new static();
+        $id->id = RamseyUuid::uuid4();
 
         return $id;
     }
@@ -28,14 +30,19 @@ class Uuid
     public static function fromString(string $uuid): self
     {
         Assertion::uuid($uuid);
-        $id = new static();
-        $id->id = $uuid;
+        $id     = new static();
+        $id->id = RamseyUuid::fromString($uuid);
 
         return $id;
     }
 
-    public function toString(): string
+    public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function toString(): string
+    {
+        return $this->id->toString();
     }
 }

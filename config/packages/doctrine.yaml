@@ -1,6 +1,8 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        mapping_types:
+            enum: string
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -12,3 +14,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Module/Employee/Infrastructure/ReadModel/View/'
                 prefix: 'App\Module\Employee\Infrastructure\ReadModel\View'
                 alias: App
+        query_cache_driver:
+            type: service
+            id: redis_cache_service
+        metadata_cache_driver:
+            type: service
+            id: redis_cache_service
+        result_cache_driver:
+            type: service
+            id: redis_cache_service

@@ -1,9 +1,26 @@
 parameters:
+    redis.host: '%env(resolve:REDIS_HOST)%'
+    redis.port: '%env(resolve:REDIS_PORT)%'
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
+
+    redis:
+        class: Redis
+        calls:
+            -   method: connect
+                arguments:
+                    - '%redis.host%'
+                    - '%redis.port%'
+
+    redis_cache_service:
+        class: Doctrine\Common\Cache\RedisCache
+        calls:
+            -   method: setRedis
+                arguments:
+                    - '@redis'
 
     App\:
         resource: '../src/*'
@@ -58,3 +75,10 @@ services:
 
     Mpdf\Mpdf:
         public: false
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]

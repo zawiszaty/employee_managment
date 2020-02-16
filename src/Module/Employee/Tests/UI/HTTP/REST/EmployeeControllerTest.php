@@ -19,6 +19,7 @@ final class EmployeeControllerTest extends UITestCase
             'salary' => 200.0,
         ]);
         $response = $this->client->getResponse();
+
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
         $this->assertCount(1, $this->entityManager->getRepository(EmployeeView::class)->findAll());
     }

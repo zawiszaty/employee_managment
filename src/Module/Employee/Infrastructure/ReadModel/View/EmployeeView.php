@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Infrastructure\ReadModel\View;
 
+use App\Infrastructure\Infrastructure\Doctrine\TimestampableTrait;
+use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity
@@ -12,11 +15,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 final class EmployeeView
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="uuid")
      */
-    private string $id;
+    private UuidInterface $id;
 
     /**
      * @ORM\Column(type="string")
@@ -34,21 +39,21 @@ final class EmployeeView
     private string $address;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="remuneration_calculation_way")
      */
-    private string $remunerationCalculationWay;
+    private RemunerationCalculationWay $remunerationCalculationWay;
 
     /**
      * @ORM\Column(type="string")
      */
     private float $salary;
 
-    public function getId(): string
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function setId(string $id): EmployeeView
+    public function setId(UuidInterface $id): EmployeeView
     {
         $this->id = $id;
 
@@ -91,12 +96,12 @@ final class EmployeeView
         return $this;
     }
 
-    public function getRemunerationCalculationWay(): string
+    public function getRemunerationCalculationWay(): RemunerationCalculationWay
     {
         return $this->remunerationCalculationWay;
     }
 
-    public function setRemunerationCalculationWay(string $remunerationCalculationWay): EmployeeView
+    public function setRemunerationCalculationWay(RemunerationCalculationWay $remunerationCalculationWay): EmployeeView
     {
         $this->remunerationCalculationWay = $remunerationCalculationWay;
 

@@ -32,7 +32,10 @@
         "symfony/validator": "^5.0",
         "nelmio/cors-bundle": "^2.0",
         "symfony/orm-pack": "^1.0",
-        "symfony/browser-kit": "^5.0"
+        "symfony/browser-kit": "^5.0",
+        "ramsey/uuid-doctrine": "^1.6",
+        "gedmo/doctrine-extensions": "^2.4",
+        "acelaya/doctrine-enum-type": "^2.3"
     },
     "autoload": {
         "psr-4": {

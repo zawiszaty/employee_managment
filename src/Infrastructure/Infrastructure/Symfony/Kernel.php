@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Infrastructure\Symfony;
 
+use App\Module\Employee\Infrastructure\EnumRegistry\EnumRegistry;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -20,11 +21,13 @@ class Kernel extends BaseKernel
     public function registerBundles(): iterable
     {
         $contents = require $this->getProjectDir().'/config/bundles.php';
+
         foreach ($contents as $class => $envs) {
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {
                 yield new $class();
             }
         }
+        EnumRegistry::register();
     }
 
     public function getProjectDir(): string
