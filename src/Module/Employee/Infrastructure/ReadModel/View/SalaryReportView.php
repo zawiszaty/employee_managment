@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\Infrastructure\ReadModel\View;
-
 
 use App\Infrastructure\Infrastructure\Doctrine\TimestampableTrait;
 use App\Module\Employee\Domain\Employee;
@@ -49,11 +47,6 @@ final class SalaryReportView
         return $this->id;
     }
 
-    /**
-     * @param UuidInterface $id
-     *
-     * @return SalaryReportView
-     */
     public function setId(UuidInterface $id): SalaryReportView
     {
         $this->id = $id;
@@ -66,11 +59,6 @@ final class SalaryReportView
         return $this->path;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return SalaryReportView
-     */
     public function setPath(string $path): SalaryReportView
     {
         $this->path = $path;
@@ -85,8 +73,6 @@ final class SalaryReportView
 
     /**
      * @param Employee|null $employee
-     *
-     * @return SalaryReportView
      */
     public function setEmployee(?EmployeeView $employee): SalaryReportView
     {
@@ -100,11 +86,6 @@ final class SalaryReportView
         return $this->type;
     }
 
-    /**
-     * @param SalaryReportType $type
-     *
-     * @return SalaryReportView
-     */
     public function setType(SalaryReportType $type): SalaryReportView
     {
         $this->type = $type;

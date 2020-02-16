@@ -31,12 +31,11 @@ final class EmployeeProjection
         PDFGenerator $PDFGenerator,
         FileMoverInterface $fileMover,
         EntityManagerInterface $entityManager
-    )
-    {
-        $this->PDFGenerator  = $PDFGenerator;
-        $this->fileMover     = $fileMover;
+    ) {
+        $this->PDFGenerator = $PDFGenerator;
+        $this->fileMover = $fileMover;
         $this->entityManager = $entityManager;
-        $this->repository    = $this->entityManager->getRepository(EmployeeView::class);
+        $this->repository = $this->entityManager->getRepository(EmployeeView::class);
     }
 
     public function __invoke(Event $event)
@@ -64,7 +63,7 @@ final class EmployeeProjection
         $employee = $this->repository->find($event->getAggregateRootId()->getId());
 
         Assertion::isInstanceOf($employee, EmployeeView::class);
-        /** @var EmployeeView $employee */
+        /* @var EmployeeView $employee */
         $employee->setCommissions($employee->getCommissions() + $event->getCommission()->getCommission());
         $this->entityManager->flush();
     }
@@ -74,7 +73,7 @@ final class EmployeeProjection
         $employee = $this->repository->find($event->getAggregateId()->getId());
 
         Assertion::isInstanceOf($employee, EmployeeView::class);
-        $workedDay     = $event->getWorkedDay();
+        $workedDay = $event->getWorkedDay();
         /** @var EmployeeView $employee */
         $workedDayView = (new WorkedDayView())->setEmployee($employee)
             ->setHoursAmount($workedDay->getHoursAmount())

@@ -13,5 +13,5 @@ use MyCLabs\Enum\Enum;
 final class SalaryReportType extends Enum
 {
     private const SINGLE_EMPLOYEE = 'single_employee';
-    private const ALL_EMPLOYEE    = 'all_employee';
+    private const ALL_EMPLOYEE = 'all_employee';
 }

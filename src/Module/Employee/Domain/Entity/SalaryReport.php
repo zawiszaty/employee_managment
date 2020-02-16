@@ -22,9 +22,9 @@ final class SalaryReport
 
     private function __construct(AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount, SalaryReportType $salaryReportType)
     {
-        $this->employeeId  = $employeeId;
-        $this->reward      = $reward;
-        $this->month       = $month;
+        $this->employeeId = $employeeId;
+        $this->reward = $reward;
+        $this->month = $month;
         $this->hoursAmount = $hoursAmount;
         $this->salaryReportType = $salaryReportType;
     }

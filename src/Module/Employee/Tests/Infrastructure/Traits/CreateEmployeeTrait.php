@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\Tests\Infrastructure\Traits;
-
 
 use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\Module\Employee\Infrastructure\ReadModel\View\EmployeeView;

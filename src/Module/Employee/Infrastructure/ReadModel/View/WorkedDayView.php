@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\Infrastructure\ReadModel\View;
 
 use App\Infrastructure\Infrastructure\Doctrine\TimestampableTrait;
@@ -47,11 +46,6 @@ final class WorkedDayView
         return $this->id;
     }
 
-    /**
-     * @param UuidInterface $id
-     *
-     * @return WorkedDayView
-     */
     public function setId(UuidInterface $id): WorkedDayView
     {
         $this->id = $id;
@@ -76,11 +70,6 @@ final class WorkedDayView
         return $this->hoursAmount;
     }
 
-    /**
-     * @param int $hoursAmount
-     *
-     * @return WorkedDayView
-     */
     public function setHoursAmount(int $hoursAmount): WorkedDayView
     {
         $this->hoursAmount = $hoursAmount;
@@ -93,11 +82,6 @@ final class WorkedDayView
         return $this->day;
     }
 
-    /**
-     * @param \DateTimeImmutable $day
-     *
-     * @return WorkedDayView
-     */
     public function setDay(\DateTimeImmutable $day): WorkedDayView
     {
         $this->day = $day;

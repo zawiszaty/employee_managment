@@ -52,8 +52,8 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->projection          = self::$container->get(EmployeeProjection::class);
-        $this->employeeRepository  = $this->entityManager->getRepository(EmployeeView::class);
+        $this->projection = self::$container->get(EmployeeProjection::class);
+        $this->employeeRepository = $this->entityManager->getRepository(EmployeeView::class);
         $this->workedDayRepository = $this->entityManager->getRepository(WorkedDayView::class);
         $this->salaryReportRepository = $this->entityManager->getRepository(SalaryReportView::class);
     }
@@ -148,7 +148,7 @@ final class EmployeeProjectionTest extends InfrastructureTestCase
             Clock::fixed(new DateTimeImmutable('01-01-2020')),
             10,
             10
-            ));
+        ));
         /** @var SalaryReportView $salaryReportView */
         $salaryReportView = $this->salaryReportRepository->findOneBy([]);
 
