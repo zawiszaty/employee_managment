@@ -9,6 +9,7 @@ use App\Infrastructure\Domain\AggregateRootId;
 use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\EventId;
 use App\Module\Employee\Domain\Entity\SalaryReport;
+use App\Module\Employee\Domain\Entity\SalaryReportType;
 use App\Module\Employee\Domain\Entity\WorkedDay;
 use App\Module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
 use App\Module\Employee\Domain\Event\EmployeeWasCreatedEvent;
@@ -97,9 +98,9 @@ final class Employee extends AggregateRoot
 
     public function generateSalaryReport(Clock $month, CalculateRewardPolicyInterface $calculateRewardPolicy): void
     {
-        $workedHours = $this->workedDaysCollection->sumHoursAmount($month);
-        $reward = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
-        $this->salaryReport = SalaryReport::create($this->getId(), $reward, $month, $workedHours);
+        $workedHours        = $this->workedDaysCollection->sumHoursAmount($month);
+        $reward             = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
+        $this->salaryReport = SalaryReport::create($this->getId(), $reward, $month, $workedHours, SalaryReportType::SINGLE_EMPLOYEE());
         $this->record(
             new EmployeeSalaryReportGeneratedEvent(
                 EventId::generate(),

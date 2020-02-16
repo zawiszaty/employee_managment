@@ -12,6 +12,7 @@ use App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAll
 use App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler;
 use App\Module\Employee\Application\EmployeeApi;
 use App\Module\Employee\Domain\Entity\SalaryReport;
+use App\Module\Employee\Domain\Entity\SalaryReportType;
 use App\Module\Employee\Domain\Event\EmployeeSalaryReportForAllEmployeesGeneratedEvent;
 use App\Module\Employee\Domain\ValueObject\Reward;
 use App\Module\Employee\Infrastructure\Repository\InMemorySalaryReportRepository;
@@ -33,7 +34,7 @@ final class GenerateForAllEmployeesHandlerTest extends TestCase
         $handler = new GenerateForAllEmployeesHandler($this->repository, $this->eventDispatcher);
 
         for ($i = 0; $i < 10; ++$i) {
-            $this->repository->apply(SalaryReport::create(AggregateRootId::generate(), Reward::createFromFloat(20.0), FixedClock::fixed(new DateTimeImmutable('1-01-2020')), 10));
+            $this->repository->apply(SalaryReport::create(AggregateRootId::generate(), Reward::createFromFloat(20.0), FixedClock::fixed(new DateTimeImmutable('1-01-2020')), 10, SalaryReportType::SINGLE_EMPLOYEE()));
         }
 
         $this->api = new EmployeeApi();

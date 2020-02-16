@@ -40,7 +40,7 @@ final class WorkedDay
         return $this->hoursAmount;
     }
 
-    public function getClock(): DateTimeImmutable
+    public function getDay(): DateTimeImmutable
     {
         return $this->clock;
     }

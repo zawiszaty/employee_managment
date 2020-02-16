@@ -18,17 +18,20 @@ final class SalaryReport
 
     private int $hoursAmount;
 
-    private function __construct(AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount)
+    private SalaryReportType $salaryReportType;
+
+    private function __construct(AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount, SalaryReportType $salaryReportType)
     {
-        $this->employeeId = $employeeId;
-        $this->reward = $reward;
-        $this->month = $month;
+        $this->employeeId  = $employeeId;
+        $this->reward      = $reward;
+        $this->month       = $month;
         $this->hoursAmount = $hoursAmount;
+        $this->salaryReportType = $salaryReportType;
     }
 
-    public static function create(AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount): self
+    public static function create(AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount, SalaryReportType $salaryReportType): self
     {
-        return new static($employeeId, $reward, $month, $hoursAmount);
+        return new static($employeeId, $reward, $month, $hoursAmount, $salaryReportType);
     }
 
     public function getHoursAmount(): int
@@ -44,5 +47,10 @@ final class SalaryReport
     public function getMonth(): Clock
     {
         return $this->month;
+    }
+
+    public function getSalaryReportType(): SalaryReportType
+    {
+        return $this->salaryReportType;
     }
 }

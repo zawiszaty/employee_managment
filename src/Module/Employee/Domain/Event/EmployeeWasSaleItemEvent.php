@@ -12,7 +12,7 @@ use App\Module\Employee\Domain\ValueObject\Commission;
 /**
  * @codeCoverageIgnore
  */
-class EmployeeWasSaleItemEvent implements Event
+final class EmployeeWasSaleItemEvent implements Event
 {
     private EventId $id;
 

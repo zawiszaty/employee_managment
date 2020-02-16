@@ -6,6 +6,8 @@ namespace App\Module\Employee\Infrastructure\ReadModel\View;
 
 use App\Infrastructure\Infrastructure\Doctrine\TimestampableTrait;
 use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
@@ -44,9 +46,30 @@ final class EmployeeView
     private RemunerationCalculationWay $remunerationCalculationWay;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="float")
      */
     private float $salary;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private float $commissions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="WorkedDayView", mappedBy="employee")
+     */
+    private Collection $workedDays;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SalaryReportView", mappedBy="employee")
+     */
+    private Collection $salaryReports;
+
+    public function __construct()
+    {
+        $this->workedDays = new ArrayCollection();
+        $this->salaryReports = new ArrayCollection();
+    }
 
     public function getId(): UuidInterface
     {
@@ -116,6 +139,42 @@ final class EmployeeView
     public function setSalary(float $salary): EmployeeView
     {
         $this->salary = $salary;
+
+        return $this;
+    }
+
+    public function getCommissions(): float
+    {
+        return $this->commissions;
+    }
+
+    public function setCommissions(float $commissions): EmployeeView
+    {
+        $this->commissions = $commissions;
+
+        return $this;
+    }
+
+    public function getWorkedDays(): Collection
+    {
+        return $this->workedDays;
+    }
+
+    public function setWorkedDays(Collection $workedDays): EmployeeView
+    {
+        $this->workedDays = $workedDays;
+
+        return $this;
+    }
+
+    public function getSalaryReports(): Collection
+    {
+        return $this->salaryReports;
+    }
+
+    public function setSalaryReports(Collection $salaryReports): EmployeeView
+    {
+        $this->salaryReports = $salaryReports;
 
         return $this;
     }
