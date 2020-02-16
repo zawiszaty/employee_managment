@@ -21,7 +21,7 @@ class Uuid
 
     public static function generate(): self
     {
-        $id     = new static();
+        $id = new static();
         $id->id = RamseyUuid::uuid4();
 
         return $id;
@@ -30,7 +30,7 @@ class Uuid
     public static function fromString(string $uuid): self
     {
         Assertion::uuid($uuid);
-        $id     = new static();
+        $id = new static();
         $id->id = RamseyUuid::fromString($uuid);
 
         return $id;

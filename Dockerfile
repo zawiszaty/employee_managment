@@ -17,7 +17,7 @@ RUN apk update && \
   		&& docker-php-ext-install zip \
   		&& docker-php-ext-install pdo pdo_pgsql \
   		&& docker-php-ext-install bcmath sockets pcntl gd \
-  		&& docker-php-ext-enable xdebug
+  		&& docker-php-ext-enable xdebug \
   		&& docker-php-ext-enable redis
 
 COPY ./.docker/nginx/default.conf /etc/nginx/conf.d/default.conf

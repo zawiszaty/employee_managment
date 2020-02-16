@@ -8,7 +8,6 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 trait TimestampableTrait
 {
     /**
@@ -28,11 +27,6 @@ trait TimestampableTrait
         return $this->createdAt;
     }
 
-    /**
-     * @param DateTime $createdAt
-     *
-     * @return TimestampableTrait
-     */
     public function setCreatedAt(DateTime $createdAt): TimestampableTrait
     {
         $this->createdAt = $createdAt;
@@ -45,11 +39,6 @@ trait TimestampableTrait
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime $updatedAt
-     *
-     * @return TimestampableTrait
-     */
     public function setUpdatedAt(DateTime $updatedAt): TimestampableTrait
     {
         $this->updatedAt = $updatedAt;
