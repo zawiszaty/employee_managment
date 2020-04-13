@@ -6,5 +6,5 @@ namespace App\Infrastructure\Domain;
 
 interface EventDispatcher
 {
-    public function dispatch(Event $event): void;
+    public function dispatch(Event ...$events): void;
 }

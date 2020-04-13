@@ -13,9 +13,6 @@ use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\Module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @codeCoverageIgnore
- */
 final class CreateEmployeeHandlerTest extends TestCase
 {
     private FakeEventDispatcher $eventDispatcher;
@@ -39,8 +36,8 @@ final class CreateEmployeeHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->eventDispatcher = new FakeEventDispatcher();
-        $createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeAggregateRepository($this->eventDispatcher));
-        $this->api = new EmployeeApi();
+        $createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeAggregateRepository(), $this->eventDispatcher);
+        $this->api             = new EmployeeApi();
         $this->api->addHandler($createEmployeeHandler);
     }
 }

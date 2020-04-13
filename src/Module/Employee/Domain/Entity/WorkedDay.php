@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Module\Employee\Domain\Entity;
 
+use App\Infrastructure\Domain\AggregateRootId;
 use App\Infrastructure\Domain\Assertion\Assertion;
 use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\Uuid;
-use DateTimeImmutable;
 
 final class WorkedDay
 {
@@ -15,24 +15,29 @@ final class WorkedDay
 
     private int $hoursAmount;
 
-    private DateTimeImmutable $clock;
+    private Clock $day;
+
+    private AggregateRootId $employeeId;
 
     private function __construct(
         Uuid $id,
-        DateTimeImmutable $clock,
-        int $hoursAmount
-    ) {
-        $this->id = $id;
+        Clock $clock,
+        int $hoursAmount,
+        AggregateRootId $employeeId
+    )
+    {
+        $this->id          = $id;
         $this->hoursAmount = $hoursAmount;
-        $this->clock = $clock;
+        $this->day         = $clock;
+        $this->employeeId = $employeeId;
     }
 
-    public static function create(int $hoursAmount, Clock $clock): self
+    public static function create(int $hoursAmount, Clock $clock, AggregateRootId $employeeId): self
     {
         Assertion::greaterThan($hoursAmount, -1);
         Assertion::lessThan($hoursAmount, 25);
 
-        return new static(Uuid::generate(), $clock->currentDateTime(), $hoursAmount);
+        return new static(Uuid::generate(), $clock, $hoursAmount, $employeeId);
     }
 
     public function getHoursAmount(): int
@@ -40,8 +45,18 @@ final class WorkedDay
         return $this->hoursAmount;
     }
 
-    public function getDay(): DateTimeImmutable
+    public function getDay(): Clock
     {
-        return $this->clock;
+        return $this->day;
+    }
+
+    public function getId(): Uuid
+    {
+        return $this->id;
+    }
+
+    public function getEmployeeId(): AggregateRootId
+    {
+        return $this->employeeId;
     }
 }

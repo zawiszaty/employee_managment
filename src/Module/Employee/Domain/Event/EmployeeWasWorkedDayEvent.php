@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Module\Employee\Domain\Event;
 
 use App\Infrastructure\Domain\AggregateRootId;
+use App\Infrastructure\Domain\Clock;
 use App\Infrastructure\Domain\Event;
 use App\Infrastructure\Domain\EventId;
 use App\Module\Employee\Domain\Entity\WorkedDay;
+use DateTimeImmutable;
 
 /**
  * @codeCoverageIgnore
@@ -40,5 +42,26 @@ class EmployeeWasWorkedDayEvent implements Event
     public function getWorkedDay(): WorkedDay
     {
         return $this->workedDay;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'event_id'          => $this->id->toString(),
+            'aggregate_root_id' => $this->aggregateId->toString(),
+            'worked_day'        => [
+                'hours_amount' => $this->workedDay->getHoursAmount(),
+                'day'          => $this->workedDay->getDay()->format('d:m:y'),
+            ],
+        ];
+    }
+
+    public static function fromArray(array $payload): Event
+    {
+        return new static(
+            EventId::fromString($payload['event_id']),
+            AggregateRootId::fromString($payload['aggregate_root_id']),
+            WorkedDay::create($payload['worked_day']['hours_amount'], Clock::fixed(new DateTimeImmutable($payload['worked_day']['day'])), AggregateRootId::fromString($payload['aggregate_root_id']))
+        );
     }
 }

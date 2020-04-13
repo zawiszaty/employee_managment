@@ -3,17 +3,27 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
         mapping_types:
             enum: string
+        types:
+            aggregate_root_id: App\Infrastructure\Infrastructure\Doctrine\CustomTypes\AggregateRootId
+            clock: App\Infrastructure\Infrastructure\Doctrine\CustomTypes\Clock
+            month: App\Infrastructure\Infrastructure\Doctrine\CustomTypes\Month
+            uuid_id: App\Infrastructure\Infrastructure\Doctrine\CustomTypes\Uuid
     orm:
+        dql:
+            string_functions:
+                MONTH: DoctrineExtensions\Query\Mysql\Month
+                YEAR: DoctrineExtensions\Query\Mysql\Year
+                DATE_PART: DoctrineExtensions\Query\Postgresql\DatePart
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            App\Module\Employee\Domain:
                 is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Module/Employee/Infrastructure/ReadModel/View/'
-                prefix: 'App\Module\Employee\Infrastructure\ReadModel\View'
-                alias: App
+                type: xml
+                dir: '%kernel.project_dir%/src/Module/Employee/Infrastructure/Persistence/Doctrine/Mapping/Domain'
+                prefix: 'App\Module\Employee\Domain'
+                alias: Employee
         query_cache_driver:
             type: service
             id: redis_cache_service

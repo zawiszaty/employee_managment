@@ -11,13 +11,17 @@ final class EventDispatcher implements \App\Infrastructure\Domain\EventDispatche
 {
     private array $eventsPublishers = [];
 
-    public function dispatch(Event $event): void
+    public function dispatch(Event ...$events): void
     {
-        array_map(static function (EventPublisher $eventPublisher) use ($event) {
-            if ($eventPublisher->supports($event)) {
-                $eventPublisher->dispatch($event);
-            }
-        }, $this->eventsPublishers);
+        foreach ($events as $event)
+        {
+            array_map(static function (EventPublisher $eventPublisher) use ($event, &$i) {
+                if ($eventPublisher->supports($event))
+                {
+                    $eventPublisher->dispatch($event);
+                }
+            }, $this->eventsPublishers);
+        }
     }
 
     public function addEventPublisher(EventPublisher $eventPublisher): void

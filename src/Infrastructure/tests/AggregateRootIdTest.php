@@ -8,9 +8,7 @@ use App\Infrastructure\Domain\AggregateRootId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @codeCoverageIgnore
- */
+
 final class AggregateRootIdTest extends TestCase
 {
     public function testItCreateId()

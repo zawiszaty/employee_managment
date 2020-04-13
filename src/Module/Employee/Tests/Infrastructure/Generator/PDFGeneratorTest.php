@@ -21,15 +21,17 @@ class PDFGeneratorTest extends TestCase
 
     public function testItGenerateReport(): void
     {
-        $filename = $this->PDFGenerator->generateSingleEmployeeReportPDF(10, 2.5, 01);
-        $this->assertFileExists(__DIR__.self::TMP_DIR.$filename);
-        unlink(__DIR__.self::TMP_DIR.$filename);
+        $path = __DIR__ . self::TMP_DIR . 'test.pdf';
+        $this->PDFGenerator->generateSingleEmployeeReportPDF(10, 2.5, 01, $path);
+        $this->assertFileExists($path);
+        unlink($path);
     }
 
     public function testItGenerateReportForAllEmployees(): void
     {
-        $filename = $this->PDFGenerator->generateAllEmployeesReportPDF(10, 2.5, 01, 10);
-        $this->assertFileExists(__DIR__.self::TMP_DIR.$filename);
-        unlink(__DIR__.self::TMP_DIR.$filename);
+        $path = __DIR__ . self::TMP_DIR . 'test.pdf';
+        $this->PDFGenerator->generateAllEmployeesReportPDF(10, 2.5, 01, 10, $path);
+        $this->assertFileExists($path);
+        unlink($path);
     }
 }

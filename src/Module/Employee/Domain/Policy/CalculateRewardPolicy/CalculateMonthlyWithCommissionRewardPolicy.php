@@ -8,15 +8,17 @@ use App\Module\Employee\Domain\ValueObject\Commission;
 use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\Module\Employee\Domain\ValueObject\Reward;
 use App\Module\Employee\Domain\ValueObject\Salary;
+use Doctrine\Common\Collections\Collection;
 
 class CalculateMonthlyWithCommissionRewardPolicy implements CalculateRewardPolicyInterface
 {
-    public function calculate(Salary $salary, int $workedHours, ?array $commissions = null): Reward
+    public function calculate(Salary $salary, int $workedHours, ?Collection $commissions = null): Reward
     {
         $rewardAmount = 0;
 
         /** @var Commission $commission */
-        foreach ($commissions as $commission) {
+        foreach ($commissions as $commission)
+        {
             $rewardAmount += $commission->getCommission();
         }
 

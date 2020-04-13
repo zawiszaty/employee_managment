@@ -16,9 +16,6 @@ use App\Module\Employee\Domain\ValueObject\Salary;
 use App\Module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @codeCoverageIgnore
- */
 final class EmployeeSaleProductHandlerTest extends TestCase
 {
     private FakeEventDispatcher $eventDispatcher;
@@ -35,7 +32,9 @@ final class EmployeeSaleProductHandlerTest extends TestCase
             Salary::createFromFloat(2.5),
         );
         $this->repo->apply($employee);
+
         $this->api->handle(new EmployeeSaleProductCommand($employee->getId()->toString(), 200));
+
         $events = $this->eventDispatcher->getEvents();
         $this->assertCount(2, $events);
         /** @var EmployeeWasSaleItemEvent $event */
@@ -46,10 +45,10 @@ final class EmployeeSaleProductHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher = new FakeEventDispatcher();
-        $this->repo = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
-        $employeeSaleProductHandler = new EmployeeSaleProductHandler($this->repo);
-        $this->api = new EmployeeApi();
+        $this->eventDispatcher      = new FakeEventDispatcher();
+        $this->repo                 = new InMemoryEmployeeAggregateRepository();
+        $employeeSaleProductHandler = new EmployeeSaleProductHandler($this->repo, $this->eventDispatcher);
+        $this->api                  = new EmployeeApi();
         $this->api->addHandler($employeeSaleProductHandler);
     }
 }

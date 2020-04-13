@@ -9,6 +9,15 @@ use PHPStan\Testing\TestCase;
 
 class Event implements \App\Infrastructure\Domain\Event
 {
+    public function toArray(): array
+    {
+        return [];
+    }
+
+    public static function fromArray(array $payload): \App\Infrastructure\Domain\Event
+    {
+        return new static();
+    }
 }
 
 class EventPublisher implements \App\Infrastructure\Domain\EventPublisher

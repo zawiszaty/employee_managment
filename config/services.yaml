@@ -1,11 +1,18 @@
 parameters:
     redis.host: '%env(resolve:REDIS_HOST)%'
     redis.port: '%env(resolve:REDIS_PORT)%'
+    rabbitmq.host: '%env(resolve:RABBITMQ_HOST)%'
+    rabbitmq.port: '%env(resolve:RABBITMQ_PORT)%'
+    rabbitmq.user: '%env(resolve:RABBITMQ_USER)%'
+    rabbitmq.password: '%env(resolve:RABBITMQ_PASSWORD)%'
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $exchange: 'shared_event'
+            $locale: '%app_id%'
 
     redis:
         class: Redis
@@ -43,7 +50,7 @@ services:
                     - '@App\Module\Employee\Application\Command\EmployeeWorkedDay\EmployeeWorkedDayHandler'
             -   method: addHandler
                 arguments:
-                    - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
+                    - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateSalaryReport\GenerateSalaryReportForSingleEmployeeHandler'
             -   method: addHandler
                 arguments:
                     - '@App\Module\Employee\Application\Command\GenerateReport\Salary\GenerateForAllEmployees\GenerateForAllEmployeesHandler'
@@ -52,7 +59,14 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest', priority: 100}
 
+    App\Infrastructure\Infrastructure\EventDispatcher:
+        calls:
+            -   method: addEventPublisher
+                arguments:
+                    - '@App\Module\Employee\Application\EventHandler\EmployeeSaleProduct\EmployeeWasSaleItemEventHandler'
+
     App\Infrastructure\Domain\EventDispatcher: '@App\Infrastructure\Infrastructure\EventDispatcher'
+
 
     App\Module\Employee\UI\HTTP\REST\Request\:
         resource: '../src/Module/Employee/UI/HTTP/REST/Request'
@@ -68,10 +82,11 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
 
-    App\Module\Employee\Domain\EmployeeRepositoryInterface: '@App\Module\Employee\Infrastructure\Repository\EmployeeAggregateRepository'
+    App\Module\Employee\Domain\EmployeeRepositoryInterface: '@App\Module\Employee\Infrastructure\Repository\EmployeeRepository'
 
-    App\Module\Employee\Infrastructure\Projection\EmployeeProjection:
-        public: true
+    App\Module\Employee\Domain\SalaryReportRepositoryInterface: '@App\Module\Employee\Infrastructure\Repository\SalaryReportRepository'
+
+    App\Module\Employee\Domain\WorkedDayRepositoryInterface: '@App\Module\Employee\Infrastructure\Repository\WorkedDayRepository'
 
     Mpdf\Mpdf:
         public: false
@@ -82,3 +97,19 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    PhpAmqpLib\Connection\AMQPStreamConnection:
+        arguments:
+            - '%rabbitmq.host%'
+            - '%rabbitmq.port%'
+            - '%rabbitmq.user%'
+            - '%rabbitmq.password%'
+            - '/'
+
+
+    app.infrastructure.infrastructure.rabbit.consumer:
+        class: App\Infrastructure\Infrastructure\Rabbit\Consumer
+        arguments:
+            - '@PhpAmqpLib\Connection\AMQPStreamConnection'
+            - '@App\Infrastructure\Infrastructure\Rabbit\EventsRabbitConfig'
+            - '@App\Infrastructure\Infrastructure\EventDispatcher'

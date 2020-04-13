@@ -9,7 +9,7 @@ use App\Module\Employee\Domain\ValueObject\PersonalData;
 use App\Module\Employee\Domain\ValueObject\RemunerationCalculationWay;
 use App\Module\Employee\Domain\ValueObject\Salary;
 
-class EmployeeMother
+final class EmployeeMother
 {
     public static function createEmployeeH(
         string $firstName = 'test',

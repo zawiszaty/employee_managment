@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping
+		xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+	<entity
+			name="App\Module\Employee\Domain\Employee"
+			table="employee">
+		<id
+				name="id"
+				column="id"
+				type="aggregate_root_id">
+			<generator strategy="NONE"/>
+		</id>
+		<embedded
+				name="personalData"
+				class="App\Module\Employee\Domain\ValueObject\PersonalData"
+				use-column-prefix="false"
+		/>
+		<field
+				name="remunerationCalculationWay"
+				column="remuneration_calculation_way"
+				type="remuneration_calculation_way"
+		/>
+		<embedded
+				name="salary"
+				class="App\Module\Employee\Domain\ValueObject\Salary"
+				use-column-prefix="false"
+		/>
+		<one-to-many field="commissions"
+					 target-entity="App\Module\Employee\Domain\ValueObject\Commission"
+					 mapped-by="employee_id">
+			<cascade>
+				<cascade-all/>
+			</cascade>
+		</one-to-many>
+		<one-to-many field="workedDaysCollection"
+					 target-entity="App\Module\Employee\Domain\Entity\WorkedDay"
+					 mapped-by="employee_id">
+			<cascade>
+				<cascade-all/>
+			</cascade>
+		</one-to-many>
+		<one-to-many field="salaryReportsCollection"
+					 target-entity="App\Module\Employee\Domain\Entity\SalaryReport"
+					 mapped-by="employee_id">
+			<cascade>
+				<cascade-all/>
+			</cascade>
+		</one-to-many>
+	</entity>
+</doctrine-mapping>

@@ -12,18 +12,21 @@ final class CreateEmployeeRequest implements RequestDTOInterface
     /**
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Assert\Type("string")
      */
     private $firstName;
 
     /**
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Assert\Type("string")
      */
     private $lastName;
 
     /**
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Assert\Type("string")
      */
     private $address;
 
@@ -37,6 +40,7 @@ final class CreateEmployeeRequest implements RequestDTOInterface
     /**
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Assert\Type("float")
      */
     private $salary;
 

@@ -24,6 +24,15 @@ final class EmployeeWorkedDayHandlerTest extends TestCase
 
     private EmployeeApi $api;
 
+    protected function setUp(): void
+    {
+        $this->eventDispatcher    = new FakeEventDispatcher();
+        $this->repo               = new InMemoryEmployeeAggregateRepository();
+        $employeeWorkedDayHandler = new EmployeeWorkedDayHandler($this->repo, $this->eventDispatcher);
+        $this->api                = new EmployeeApi();
+        $this->api->addHandler($employeeWorkedDayHandler);
+    }
+
     public function testItEmployeeSaleItem(): void
     {
         $employee = EmployeeMother::createEmployeeM();
@@ -35,14 +44,5 @@ final class EmployeeWorkedDayHandlerTest extends TestCase
         $event = $events[1];
         $this->assertInstanceOf(EmployeeWasWorkedDayEvent::class, $event);
         $this->assertSame(8, $event->getWorkedDay()->getHoursAmount());
-    }
-
-    protected function setUp(): void
-    {
-        $this->eventDispatcher = new FakeEventDispatcher();
-        $this->repo = new InMemoryEmployeeAggregateRepository($this->eventDispatcher);
-        $employeeWorkedDayHandler = new EmployeeWorkedDayHandler($this->repo);
-        $this->api = new EmployeeApi();
-        $this->api->addHandler($employeeWorkedDayHandler);
     }
 }

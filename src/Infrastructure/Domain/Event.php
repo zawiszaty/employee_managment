@@ -9,4 +9,7 @@ namespace App\Infrastructure\Domain;
  */
 interface Event
 {
+    public function toArray(): array;
+
+    public static function fromArray(array $payload): self;
 }

@@ -9,11 +9,11 @@ use App\Infrastructure\Domain\EventDispatcher;
 
 final class FakeEventDispatcher implements EventDispatcher
 {
-    private array $events;
+    private array $events = [];
 
-    public function dispatch(Event $event): void
+    public function dispatch(Event ...$events): void
     {
-        $this->events[] = $event;
+        $this->events = array_merge($this->events, $events);
     }
 
     public function getEvents(): array

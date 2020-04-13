@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Domain;
 
 use App\Infrastructure\Domain\Assertion\Assertion;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -21,7 +23,7 @@ class Uuid
 
     public static function generate(): self
     {
-        $id = new static();
+        $id     = new static();
         $id->id = RamseyUuid::uuid4();
 
         return $id;
@@ -42,6 +44,11 @@ class Uuid
     }
 
     public function toString(): string
+    {
+        return $this->__toString();
+    }
+
+    public function __toString()
     {
         return $this->id->toString();
     }

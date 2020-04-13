@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Module\Employee\Infrastructure\Generator;
 
 use Mpdf\Mpdf;
-use Ramsey\Uuid\Uuid;
 
 class PDFGenerator implements PDFGeneratorInterface
 {
@@ -16,7 +15,7 @@ class PDFGenerator implements PDFGeneratorInterface
         $this->mpdf = $mpdf;
     }
 
-    public function generateSingleEmployeeReportPDF(int $hoursAmount, float $salary, int $month): string
+    public function generateSingleEmployeeReportPDF(int $hoursAmount, float $salary, int $month, string $filePath): void
     {
         $this->mpdf->SetDisplayMode('fullpage');
         $this->mpdf->SetHeader('{DATE j-m-Y}| Salary Report for |{PAGENO}');
@@ -31,13 +30,10 @@ class PDFGenerator implements PDFGeneratorInterface
         </html>
         ";
         $this->mpdf->WriteHTML($html);
-        $filename = sprintf('%s.pdf', Uuid::uuid4()->toString());
-        $this->mpdf->Output('.tmp/'.$filename, \Mpdf\Output\Destination::FILE);
-
-        return $filename;
+        $this->mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
     }
 
-    public function generateAllEmployeesReportPDF(int $hoursAmount, float $salary, int $month, int $employeeAmount): string
+    public function generateAllEmployeesReportPDF(int $hoursAmount, float $salary, int $month, int $employeeAmount, string $filePath): void
     {
         $this->mpdf->SetDisplayMode('fullpage');
         $this->mpdf->SetHeader('{DATE j-m-Y}| Salary Report for |{PAGENO}');
@@ -53,9 +49,6 @@ class PDFGenerator implements PDFGeneratorInterface
         </html>
         ";
         $this->mpdf->WriteHTML($html);
-        $filename = sprintf('%s.pdf', Uuid::uuid4()->toString());
-        $this->mpdf->Output('.tmp/'.$filename, \Mpdf\Output\Destination::FILE);
-
-        return $filename;
+        $this->mpdf->Output($filePath, \Mpdf\Output\Destination::FILE);
     }
 }

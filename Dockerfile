@@ -13,12 +13,15 @@ RUN apk update && \
         libpng-dev \
         postgresql-dev \
         rabbitmq-c rabbitmq-c-dev \
-        && pecl install -o -f xdebug-2.9.0 redis \
+        && pecl install -o -f xdebug-2.9.0 \
   		&& docker-php-ext-install zip \
   		&& docker-php-ext-install pdo pdo_pgsql \
   		&& docker-php-ext-install bcmath sockets pcntl gd \
-  		&& docker-php-ext-enable xdebug \
-  		&& docker-php-ext-enable redis
+  		&& docker-php-ext-enable xdebug
+
+RUN pecl install -o -f redis \
+&&  rm -rf /tmp/pear \
+&&  docker-php-ext-enable redis
 
 COPY ./.docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 

@@ -17,17 +17,13 @@ abstract class InMemoryAggregateRepository
     /** @var array<AggregateRoot> */
     private array $aggregates = [];
 
-    public function __construct(EventDispatcher $eventDispatcher)
+    public function __construct()
     {
         $this->events = [];
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function save(): void
     {
-        foreach ($this->events as $event) {
-            $this->eventDispatcher->dispatch($event);
-        }
         $this->events = [];
     }
 
@@ -38,8 +34,6 @@ abstract class InMemoryAggregateRepository
 
     public function apply(AggregateRoot $aggregateRoot): void
     {
-        $this->events = array_merge($this->events, $aggregateRoot->getUncommittedEvents());
-        $aggregateRoot->commitEvents();
         $this->aggregates[$aggregateRoot->getId()->toString()] = $aggregateRoot;
     }
 }
