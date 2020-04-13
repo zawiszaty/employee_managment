@@ -1,5 +1,6 @@
 .Phony: start
 start:
+	mkdir -p web/private
 	docker-compose up -d
 	docker-compose exec -T php sh ./.docker/wait_for_nginx.sh
 	make db
