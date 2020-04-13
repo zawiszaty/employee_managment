@@ -27,8 +27,7 @@ abstract class MysqlRepository
             ->getQuery()
             ->getOneOrNullResult();
 
-        if (null === $model)
-        {
+        if (null === $model) {
             throw new NotFoundHttpException();
         }
 

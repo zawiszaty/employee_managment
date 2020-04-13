@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Module\Employee\Tests\Functional\EventHandler;
-
 
 use App\Infrastructure\Domain\EventDispatcher;
 use App\Infrastructure\Domain\EventId;
@@ -43,7 +41,7 @@ final class EmployeeWasSaleItemEventHandlerTest extends ApplicationFunctionalTes
         ));
 
         $commissions = $this->entityManager->getRepository(Commission::class)->findBy([
-            'employeeId' => $employee->getId()->toString()
+            'employeeId' => $employee->getId()->toString(),
         ]);
         $this->assertGreaterThan(0, count($commissions));
     }

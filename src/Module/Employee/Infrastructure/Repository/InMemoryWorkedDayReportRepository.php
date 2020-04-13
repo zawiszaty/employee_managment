@@ -22,10 +22,8 @@ final class InMemoryWorkedDayReportRepository implements WorkedDayRepositoryInte
     {
         $hoursAmount = 0;
 
-        foreach ($this->workedDays as $workedDay)
-        {
-            if ($workedDay->getEmployeeId()->toString() === $aggregateRootId->toString())
-            {
+        foreach ($this->workedDays as $workedDay) {
+            if ($workedDay->getEmployeeId()->toString() === $aggregateRootId->toString()) {
                 $hoursAmount += $workedDay->getHoursAmount();
             }
         }

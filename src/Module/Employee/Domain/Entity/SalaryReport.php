@@ -28,13 +28,13 @@ final class SalaryReport
 
     private function __construct(Uuid $id, ?AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount, SalaryReportType $salaryReportType, Path $path)
     {
-        $this->employeeId       = $employeeId;
-        $this->reward           = $reward;
-        $this->month            = $month;
-        $this->hoursAmount      = $hoursAmount;
+        $this->employeeId = $employeeId;
+        $this->reward = $reward;
+        $this->month = $month;
+        $this->hoursAmount = $hoursAmount;
         $this->salaryReportType = $salaryReportType;
-        $this->id               = $id;
-        $this->path             = $path;
+        $this->id = $id;
+        $this->path = $path;
     }
 
     public static function create(Uuid $id, ?AggregateRootId $employeeId, Reward $reward, Clock $month, int $hoursAmount, SalaryReportType $salaryReportType, Path $path): self

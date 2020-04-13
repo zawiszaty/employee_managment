@@ -17,8 +17,7 @@ class CalculateMonthlyWithCommissionRewardPolicy implements CalculateRewardPolic
         $rewardAmount = 0;
 
         /** @var Commission $commission */
-        foreach ($commissions as $commission)
-        {
+        foreach ($commissions as $commission) {
             $rewardAmount += $commission->getCommission();
         }
 

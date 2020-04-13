@@ -34,25 +34,24 @@ class GenerateSalaryReportForSingleEmployeeHandler extends CommandHandler
         EventDispatcher $eventDispatcher,
         PDFGeneratorInterface $PDFGenerator,
         WorkedDayRepositoryInterface $workedDayRepository
-    )
-    {
-        $this->employeeRepository           = $employeeRepository;
+    ) {
+        $this->employeeRepository = $employeeRepository;
         $this->calculateRewardPolicyFactory = $calculateRewardPolicyFactory;
-        $this->eventDispatcher              = $eventDispatcher;
-        $this->PDFGenerator                 = $PDFGenerator;
-        $this->workedDayRepository          = $workedDayRepository;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->PDFGenerator = $PDFGenerator;
+        $this->workedDayRepository = $workedDayRepository;
     }
 
     public function handle(GenerateSalaryReportForSingleEmployeeCommand $command): void
     {
         $aggregateRootId = AggregateRootId::fromString($command->getEmployeeId());
-        $employee        = $this->employeeRepository->get($aggregateRootId);
-        $month           = (int) $command->getTime()->format('m');
-        $sumWorkedHours  = $this->workedDayRepository->getSumOfEmployeeWorkedHoursByMonth(
+        $employee = $this->employeeRepository->get($aggregateRootId);
+        $month = (int) $command->getTime()->format('m');
+        $sumWorkedHours = $this->workedDayRepository->getSumOfEmployeeWorkedHoursByMonth(
             $aggregateRootId,
             $month
         );
-        $path            = Path::generate(self::NEW_PATH, 'pdf');
+        $path = Path::generate(self::NEW_PATH, 'pdf');
         $employee->generateSalaryReport(
             Clock::fixed($command->getTime()),
             $this->calculateRewardPolicyFactory->getPolicy($employee->getRemunerationCalculationWay()),

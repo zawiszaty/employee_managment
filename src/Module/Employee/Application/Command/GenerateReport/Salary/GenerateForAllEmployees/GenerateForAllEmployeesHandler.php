@@ -30,24 +30,22 @@ class GenerateForAllEmployeesHandler extends CommandHandler
         SalaryReportRepositoryInterface $salaryReportRepository,
         EventDispatcher $eventDispatcher,
         PDFGeneratorInterface $PDFGenerator
-    )
-    {
+    ) {
         $this->salaryReportRepository = $salaryReportRepository;
-        $this->eventDispatcher        = $eventDispatcher;
-        $this->PDFGenerator           = $PDFGenerator;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->PDFGenerator = $PDFGenerator;
     }
 
     public function handle(GenerateForAllEmployeesCommand $command): void
     {
-        $reports         = $this->salaryReportRepository->getByMonth($command->getMonth());
-        $reward          = 0.0;
+        $reports = $this->salaryReportRepository->getByMonth($command->getMonth());
+        $reward = 0.0;
         $employeesAmount = 0;
-        $hoursAmount     = 0;
-        $path            = Path::generate(self::NEW_PATH, 'pdf');
-        $month           = (int) $command->getMonth()->currentDateTime()->format('m');
+        $hoursAmount = 0;
+        $path = Path::generate(self::NEW_PATH, 'pdf');
+        $month = (int) $command->getMonth()->currentDateTime()->format('m');
 
-        foreach ($reports as $report)
-        {
+        foreach ($reports as $report) {
             $reward += $report->getReward()->getAmount();
             ++$employeesAmount;
             $hoursAmount += $report->getHoursAmount();

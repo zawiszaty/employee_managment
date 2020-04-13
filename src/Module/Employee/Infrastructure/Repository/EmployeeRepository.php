@@ -27,12 +27,11 @@ final class EmployeeRepository extends MysqlRepository implements EmployeeReposi
     {
         $employee = $this->repository->find($aggregateRootId->toString());
 
-        if (false === $employee instanceof Employee)
-        {
+        if (false === $employee instanceof Employee) {
             throw new \DomainException('Employee Not Found');
         }
 
-        /** @var Employee $employee */
+        /* @var Employee $employee */
         return $employee;
     }
 }

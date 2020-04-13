@@ -35,12 +35,11 @@ final class GenerateForAllEmployeesHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->eventDispatcher = new FakeEventDispatcher();
-        $this->repository      = new InMemorySalaryReportRepository();
-        $this->PDFGenerator    = new SpyPDFGenerator();
-        $handler               = new GenerateForAllEmployeesHandler($this->repository, $this->eventDispatcher, $this->PDFGenerator);
+        $this->repository = new InMemorySalaryReportRepository();
+        $this->PDFGenerator = new SpyPDFGenerator();
+        $handler = new GenerateForAllEmployeesHandler($this->repository, $this->eventDispatcher, $this->PDFGenerator);
 
-        for ($i = 0; $i < 10; ++$i)
-        {
+        for ($i = 0; $i < 10; ++$i) {
             $this->repository->apply(
                 SalaryReport::create(
                     Uuid::generate(),
@@ -64,7 +63,7 @@ final class GenerateForAllEmployeesHandlerTest extends TestCase
 
         $event = $this->eventDispatcher->getEvents()[0];
         $this->assertInstanceOf(EmployeeSalaryReportForAllEmployeesGeneratedEvent::class, $event);
-        /** @var EmployeeSalaryReportForAllEmployeesGeneratedEvent $event */
+        /* @var EmployeeSalaryReportForAllEmployeesGeneratedEvent $event */
         $this->assertSame(200.0, $event->getReward()->getAmount());
         $this->assertSame(01, (int) $event->getMonth()->currentDateTime()->format('m'));
         $this->assertSame(100, $event->getHoursAmount());

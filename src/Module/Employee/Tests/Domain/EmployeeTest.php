@@ -16,7 +16,6 @@ use App\Module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateMonthlyRewa
 use App\Module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateMonthlyWithCommissionRewardPolicy;
 use App\Module\Employee\Domain\ValueObject\Commission;
 use App\Module\Employee\Domain\ValueObject\Path;
-use App\Module\Employee\Domain\ValueObject\WorkedDaysCollection;
 use App\Module\Employee\Tests\TestDouble\EmployeeMother;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -57,7 +56,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportMonthly(): void
     {
         $employee = EmployeeMother::createEmployeeM();
-        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $clock = Clock::fixed(new DateTimeImmutable('01-01-2012'));
 
         $employee->generateSalaryReport($clock, new CalculateMonthlyRewardPolicy(), 10, Path::generate('test', 'pdf'));
         $report = $employee->getSalaryReportsCollection()->first();
@@ -71,7 +70,7 @@ class EmployeeTest extends TestCase
     public function testGenerateSalaryReportHourly(): void
     {
         $employee = EmployeeMother::createEmployeeH();
-        $clock    = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $clock = Clock::fixed(new DateTimeImmutable('01-01-2012'));
 
         $employee->generateSalaryReport($clock, new CalculateHourlyRewardPolicy(), 10, Path::generate('test', 'pdf'));
         $report = $employee->getSalaryReportsCollection()->first();
@@ -84,8 +83,8 @@ class EmployeeTest extends TestCase
 
     public function testGenerateSalaryReportHourlyWithCommission(): void
     {
-        $employee            = EmployeeMother::createEmployeeMC();
-        $clock               = Clock::fixed(new DateTimeImmutable('01-01-2012'));
+        $employee = EmployeeMother::createEmployeeMC();
+        $clock = Clock::fixed(new DateTimeImmutable('01-01-2012'));
         $employee->sale(Commission::create(100, AggregateRootId::generate(), Clock::system()));
 
         $employee->generateSalaryReport($clock, new CalculateMonthlyWithCommissionRewardPolicy(), 10, Path::generate('test', 'pdf'));

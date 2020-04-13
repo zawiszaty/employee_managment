@@ -12,7 +12,7 @@ final class SpyPDFGenerator implements PDFGeneratorInterface
 
     public function generateSingleEmployeeReportPDF(int $hoursAmount, float $salary, int $month, string $filePath): void
     {
-        $this->counter++;
+        ++$this->counter;
     }
 
     public function getCounter(): int
@@ -22,6 +22,6 @@ final class SpyPDFGenerator implements PDFGeneratorInterface
 
     public function generateAllEmployeesReportPDF(int $hoursAmount, float $salary, int $month, int $employeeAmount, string $filePath): void
     {
-        $this->counter++;
+        ++$this->counter;
     }
 }

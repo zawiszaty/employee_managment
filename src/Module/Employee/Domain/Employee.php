@@ -48,15 +48,14 @@ final class Employee extends AggregateRoot
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    )
-    {
-        $this->id                         = AggregateRootId::generate();
-        $this->personalData               = $personalData;
+    ) {
+        $this->id = AggregateRootId::generate();
+        $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
-        $this->salary                     = $salary;
-        $this->workedDaysCollection       = new ArrayCollection();
-        $this->commissions                = new ArrayCollection();
-        $this->salaryReportsCollection    = new ArrayCollection();
+        $this->salary = $salary;
+        $this->workedDaysCollection = new ArrayCollection();
+        $this->commissions = new ArrayCollection();
+        $this->salaryReportsCollection = new ArrayCollection();
     }
 
     public static function create(
@@ -106,7 +105,7 @@ final class Employee extends AggregateRoot
 
     public function generateSalaryReport(Clock $month, CalculateRewardPolicyInterface $calculateRewardPolicy, int $workedHours, Path $path): void
     {
-        $reward       = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
+        $reward = $calculateRewardPolicy->calculate($this->salary, $workedHours, $this->commissions);
         $salaryReport = SalaryReport::create(Uuid::generate(), $this->getId(), $reward, $month, $workedHours, SalaryReportType::SINGLE_EMPLOYEE(), $path);
         $this->salaryReportsCollection->add($salaryReport);
         $this->record(

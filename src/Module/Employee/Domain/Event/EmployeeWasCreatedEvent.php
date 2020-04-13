@@ -32,13 +32,12 @@ final class EmployeeWasCreatedEvent implements Event
         PersonalData $personalData,
         RemunerationCalculationWay $remunerationCalculationWay,
         Salary $salary
-    )
-    {
-        $this->eventId                    = $eventId;
-        $this->personalData               = $personalData;
+    ) {
+        $this->eventId = $eventId;
+        $this->personalData = $personalData;
         $this->remunerationCalculationWay = $remunerationCalculationWay;
-        $this->aggregateRootId            = $aggregateRootId;
-        $this->salary                     = $salary;
+        $this->aggregateRootId = $aggregateRootId;
+        $this->salary = $salary;
     }
 
     public function getEventId(): EventId
@@ -84,15 +83,15 @@ final class EmployeeWasCreatedEvent implements Event
     public function toArray(): array
     {
         return [
-            'event_id'                     => $this->eventId->toString(),
-            'aggregate_root_id'            => $this->aggregateRootId->toString(),
-            'personal_data'                => [
+            'event_id' => $this->eventId->toString(),
+            'aggregate_root_id' => $this->aggregateRootId->toString(),
+            'personal_data' => [
                 'first_name' => $this->personalData->getFirstName(),
-                'last_name'  => $this->personalData->getLastName(),
-                'address'    => $this->personalData->getAddress(),
+                'last_name' => $this->personalData->getLastName(),
+                'address' => $this->personalData->getAddress(),
             ],
             'remuneration_calculation_way' => $this->remunerationCalculationWay->getValue(),
-            'salary'                       => $this->salary->getAmount()
+            'salary' => $this->salary->getAmount(),
         ];
     }
 }

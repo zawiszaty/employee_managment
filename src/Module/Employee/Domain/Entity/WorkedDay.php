@@ -24,11 +24,10 @@ final class WorkedDay
         Clock $clock,
         int $hoursAmount,
         AggregateRootId $employeeId
-    )
-    {
-        $this->id          = $id;
+    ) {
+        $this->id = $id;
         $this->hoursAmount = $hoursAmount;
-        $this->day         = $clock;
+        $this->day = $clock;
         $this->employeeId = $employeeId;
     }
 

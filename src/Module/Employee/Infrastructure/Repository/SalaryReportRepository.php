@@ -24,19 +24,18 @@ final class SalaryReportRepository extends MysqlRepository implements SalaryRepo
     {
         $employee = $this->repository->find($id->toString());
 
-        if (false === $employee instanceof Employee)
-        {
+        if (false === $employee instanceof Employee) {
             throw new \DomainException('Employee Not Found');
         }
 
-        /** @var SalaryReport $employee */
+        /* @var SalaryReport $employee */
         return $employee;
     }
 
     public function getByMonth(Clock $month): array
     {
         return $this->repository->findBy([
-            'month' => $month->currentDateTime()->format('m')
+            'month' => $month->currentDateTime()->format('m'),
         ]);
     }
 

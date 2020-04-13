@@ -21,7 +21,7 @@ class EmployeeWorkedDayHandler extends CommandHandler
     public function __construct(EmployeeRepositoryInterface $employeeRepository, EventDispatcher $eventDispatcher)
     {
         $this->employeeRepository = $employeeRepository;
-        $this->eventDispatcher    = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handle(EmployeeWorkedDayCommand $command): void

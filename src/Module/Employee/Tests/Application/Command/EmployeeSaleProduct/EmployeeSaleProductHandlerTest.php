@@ -45,10 +45,10 @@ final class EmployeeSaleProductHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher      = new FakeEventDispatcher();
-        $this->repo                 = new InMemoryEmployeeAggregateRepository();
+        $this->eventDispatcher = new FakeEventDispatcher();
+        $this->repo = new InMemoryEmployeeAggregateRepository();
         $employeeSaleProductHandler = new EmployeeSaleProductHandler($this->repo, $this->eventDispatcher);
-        $this->api                  = new EmployeeApi();
+        $this->api = new EmployeeApi();
         $this->api->addHandler($employeeSaleProductHandler);
     }
 }

@@ -37,7 +37,7 @@ final class CreateEmployeeHandlerTest extends TestCase
     {
         $this->eventDispatcher = new FakeEventDispatcher();
         $createEmployeeHandler = new CreateEmployeeHandler(new InMemoryEmployeeAggregateRepository(), $this->eventDispatcher);
-        $this->api             = new EmployeeApi();
+        $this->api = new EmployeeApi();
         $this->api->addHandler($createEmployeeHandler);
     }
 }

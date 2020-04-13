@@ -21,7 +21,7 @@ class PDFGeneratorTest extends TestCase
 
     public function testItGenerateReport(): void
     {
-        $path = __DIR__ . self::TMP_DIR . 'test.pdf';
+        $path = __DIR__.self::TMP_DIR.'test.pdf';
         $this->PDFGenerator->generateSingleEmployeeReportPDF(10, 2.5, 01, $path);
         $this->assertFileExists($path);
         unlink($path);
@@ -29,7 +29,7 @@ class PDFGeneratorTest extends TestCase
 
     public function testItGenerateReportForAllEmployees(): void
     {
-        $path = __DIR__ . self::TMP_DIR . 'test.pdf';
+        $path = __DIR__.self::TMP_DIR.'test.pdf';
         $this->PDFGenerator->generateAllEmployeesReportPDF(10, 2.5, 01, 10, $path);
         $this->assertFileExists($path);
         unlink($path);

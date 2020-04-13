@@ -24,7 +24,7 @@ final class DupaCommand extends Command
     public function __construct(Producer $producer, EmployeeAPIInterface $employeeAPI)
     {
         parent::__construct();
-        $this->producer    = $producer;
+        $this->producer = $producer;
         $this->employeeAPI = $employeeAPI;
     }
 

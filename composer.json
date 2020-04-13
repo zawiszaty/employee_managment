@@ -36,7 +36,6 @@
         "ramsey/uuid-doctrine": "^1.6",
         "gedmo/doctrine-extensions": "^2.4",
         "acelaya/doctrine-enum-type": "^2.3",
-        "mhujer/jms-serializer-uuid-bundle": "^4.1",
         "beberlei/doctrineextensions": "^1.2"
     },
     "autoload": {

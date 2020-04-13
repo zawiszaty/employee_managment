@@ -23,9 +23,9 @@ final class Commission
     private function __construct(UuidInterface $uuid, AggregateRootId $employeeId, float $commissionValue, Clock $month)
     {
         $this->commission = $commissionValue;
-        $this->uuid       = $uuid;
+        $this->uuid = $uuid;
         $this->employeeId = $employeeId;
-        $this->month      = $month;
+        $this->month = $month;
     }
 
     public static function create(float $commissionValue, AggregateRootId $employeeId, Clock $month): self

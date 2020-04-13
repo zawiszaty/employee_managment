@@ -51,16 +51,16 @@ class EmployeeSalaryReportGeneratedEvent implements Event
     public function toArray(): array
     {
         return [
-            'event_id'          => $this->id->toString(),
+            'event_id' => $this->id->toString(),
             'aggregate_root_id' => $this->aggregateId->toString(),
-            'salary_report'     => [
-                'id'           => $this->salaryReport->getId()->toString(),
-                'month'        => $this->salaryReport->getMonth()->currentDateTime()->format('d:m:y'),
-                'reward'       => $this->salaryReport->getReward(),
+            'salary_report' => [
+                'id' => $this->salaryReport->getId()->toString(),
+                'month' => $this->salaryReport->getMonth()->currentDateTime()->format('d:m:y'),
+                'reward' => $this->salaryReport->getReward(),
                 'hours_amount' => $this->salaryReport->getHoursAmount(),
-                'salary_type'  => $this->salaryReport->getSalaryReportType()->getValue(),
-                'employee_id'  => $this->salaryReport->getEmployeeId(),
-                'path'         => $this->salaryReport->getPath()->getValue(),
+                'salary_type' => $this->salaryReport->getSalaryReportType()->getValue(),
+                'employee_id' => $this->salaryReport->getEmployeeId(),
+                'path' => $this->salaryReport->getPath()->getValue(),
             ],
         ];
     }
@@ -78,7 +78,6 @@ class EmployeeSalaryReportGeneratedEvent implements Event
                 $payload['hours_amount'],
                 new SalaryReportType($payload['salary_type']),
                 Path::fromString($payload['salary_report']['path'])
-
             )
         );
     }

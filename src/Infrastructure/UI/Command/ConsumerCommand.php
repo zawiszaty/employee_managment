@@ -27,10 +27,10 @@ final class ConsumerCommand extends Command
     public function __construct(Consumer $consumer, AMQPStreamConnection $connection, string $exchange, string $locale)
     {
         parent::__construct();
-        $this->consumer   = $consumer;
+        $this->consumer = $consumer;
         $this->connection = $connection;
-        $this->exchange   = $exchange;
-        $this->locale     = $locale;
+        $this->exchange = $exchange;
+        $this->locale = $locale;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -13,7 +13,6 @@ use App\Module\Employee\Domain\Employee;
 use App\Module\Employee\Domain\Entity\WorkedDay;
 use App\Module\Employee\Domain\Event\EmployeeSalaryReportGeneratedEvent;
 use App\Module\Employee\Domain\Policy\CalculateRewardPolicy\CalculateRewardPolicyFactory;
-use App\Module\Employee\Infrastructure\Generator\DummyPDFGenerator;
 use App\Module\Employee\Infrastructure\Repository\InMemoryEmployeeAggregateRepository;
 use App\Module\Employee\Infrastructure\Repository\InMemoryWorkedDayReportRepository;
 use App\Module\Employee\Tests\TestDouble\EmployeeMother;
@@ -37,12 +36,12 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventDispatcher                   = new FakeEventDispatcher();
-        $this->repository                        = new InMemoryEmployeeAggregateRepository();
-        $this->inMemoryWorkedDayReportRepository = new InMemoryWorkedDayReportRepository;
-        $this->employee                          = EmployeeMother::createEmployeeM();
-        $this->PDFGenerator                      = new SpyPDFGenerator();
-        $handler                                 = new GenerateSalaryReportForSingleEmployeeHandler(
+        $this->eventDispatcher = new FakeEventDispatcher();
+        $this->repository = new InMemoryEmployeeAggregateRepository();
+        $this->inMemoryWorkedDayReportRepository = new InMemoryWorkedDayReportRepository();
+        $this->employee = EmployeeMother::createEmployeeM();
+        $this->PDFGenerator = new SpyPDFGenerator();
+        $handler = new GenerateSalaryReportForSingleEmployeeHandler(
             $this->repository,
             new CalculateRewardPolicyFactory(),
             $this->eventDispatcher,
@@ -50,8 +49,7 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
             $this->inMemoryWorkedDayReportRepository
         );
 
-        for ($i = 0; $i < 20; ++$i)
-        {
+        for ($i = 0; $i < 20; ++$i) {
             $this->inMemoryWorkedDayReportRepository->apply(WorkedDay::create(8, Clock::system(), $this->employee->getId()));
         }
         $this->repository->apply($this->employee);
@@ -69,7 +67,7 @@ class GenerateSalaryReportForSingleEmployeeHandlerTest extends TestCase
         $this->assertCount(2, $events);
         $event = $events[1];
         $this->assertInstanceOf(EmployeeSalaryReportGeneratedEvent::class, $event);
-        /** @var EmployeeSalaryReportGeneratedEvent $event */
+        /* @var EmployeeSalaryReportGeneratedEvent $event */
         $this->assertSame($this->employee->getId()->toString(), $event->getAggregateId()->toString());
         $salaryReport = $event->getSalaryReport();
         $this->assertSame(160, $salaryReport->getHoursAmount());

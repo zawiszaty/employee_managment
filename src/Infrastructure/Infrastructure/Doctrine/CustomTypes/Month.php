@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\Infrastructure\Doctrine\CustomTypes;
 
 use DateTimeImmutable;
@@ -20,8 +19,7 @@ final class Month extends IntegerType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if (false === $value instanceof \App\Infrastructure\Domain\Clock)
-        {
+        if (false === $value instanceof \App\Infrastructure\Domain\Clock) {
             throw new \Exception('Must be instanceof clock');
         }
 

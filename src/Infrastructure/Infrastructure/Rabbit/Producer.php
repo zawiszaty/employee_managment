@@ -24,12 +24,11 @@ final class Producer
         string $exchange,
         string $locale,
         EventsRabbitConfig $config
-    )
-    {
+    ) {
         $this->exchange = $exchange;
-        $this->locale   = $locale;
-        $this->config   = $config;
-        $this->channel  = $connection->channel();
+        $this->locale = $locale;
+        $this->config = $config;
+        $this->channel = $connection->channel();
         $this->channel->exchange_declare($this->exchange, 'fanout', false, false, false);
     }
 
@@ -37,11 +36,10 @@ final class Producer
     {
         $payload = [
             'routing_key' => $this->config->getByNamespace(get_class($event)),
-            'payload'     => $event->toArray()
+            'payload' => $event->toArray(),
         ];
 
-        if ($this->config->hasByNamespace(get_class($event)) === false)
-        {
+        if (false === $this->config->hasByNamespace(get_class($event))) {
             return;
         }
         $this->channel->basic_publish(new AMQPMessage(json_encode($payload)), $this->exchange, sprintf('%s.%s', $this->locale, $this->config->getByNamespace(get_class($event))));

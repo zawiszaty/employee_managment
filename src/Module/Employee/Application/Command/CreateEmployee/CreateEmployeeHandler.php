@@ -21,7 +21,7 @@ class CreateEmployeeHandler extends CommandHandler
     public function __construct(EmployeeRepositoryInterface $employeeRepository, EventDispatcher $eventDispatcher)
     {
         $this->employeeRepository = $employeeRepository;
-        $this->eventDispatcher    = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handle(CreateEmployeeCommand $command): void
@@ -30,7 +30,7 @@ class CreateEmployeeHandler extends CommandHandler
             PersonalData::createFromString($command->getFirstName(), $command->getLastName(), $command->getAddress()),
             new RemunerationCalculationWay($command->getRemunerationCalculationWay()),
             Salary::createFromFloat($command->getSalary()),
-            );
+        );
 
         $this->employeeRepository->apply($employee);
         $this->employeeRepository->save();

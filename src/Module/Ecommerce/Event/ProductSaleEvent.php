@@ -18,7 +18,7 @@ final class ProductSaleEvent implements Event
 
     public function __construct(EventId $eventId, AggregateRootId $employeeId, float $commission)
     {
-        $this->eventId    = $eventId;
+        $this->eventId = $eventId;
         $this->commission = $commission;
         $this->employeeId = $employeeId;
     }
@@ -26,8 +26,8 @@ final class ProductSaleEvent implements Event
     public function toArray(): array
     {
         return [
-            'event_id'    => $this->eventId->toString(),
-            'commission'  => $this->commission,
+            'event_id' => $this->eventId->toString(),
+            'commission' => $this->commission,
             'employee_id' => $this->eventId,
         ];
     }
@@ -45,7 +45,6 @@ final class ProductSaleEvent implements Event
     {
         return $this->eventId;
     }
-
 
     public function getCommission(): float
     {

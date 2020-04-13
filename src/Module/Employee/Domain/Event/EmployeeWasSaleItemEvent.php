@@ -24,7 +24,7 @@ final class EmployeeWasSaleItemEvent implements Event
 
     public function __construct(EventId $id, Commission $commission)
     {
-        $this->id         = $id;
+        $this->id = $id;
         $this->commission = $commission;
     }
 
@@ -58,13 +58,13 @@ final class EmployeeWasSaleItemEvent implements Event
     public function toArray(): array
     {
         return [
-            'event_id'          => $this->id->toString(),
+            'event_id' => $this->id->toString(),
             'aggregate_root_id' => $this->aggregateRootId->toString(),
-            'commission'        => [
-                'amount'      => $this->commission->getCommission(),
+            'commission' => [
+                'amount' => $this->commission->getCommission(),
                 'employee_id' => $this->commission->getEmployeeId()->toString(),
-                'month'       => $this->commission->getMonth()->currentDateTime()->format('d:m:y'),
-            ]
+                'month' => $this->commission->getMonth()->currentDateTime()->format('d:m:y'),
+            ],
         ];
     }
 }

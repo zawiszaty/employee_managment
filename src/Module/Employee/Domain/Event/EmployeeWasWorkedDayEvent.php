@@ -47,11 +47,11 @@ class EmployeeWasWorkedDayEvent implements Event
     public function toArray(): array
     {
         return [
-            'event_id'          => $this->id->toString(),
+            'event_id' => $this->id->toString(),
             'aggregate_root_id' => $this->aggregateId->toString(),
-            'worked_day'        => [
+            'worked_day' => [
                 'hours_amount' => $this->workedDay->getHoursAmount(),
-                'day'          => $this->workedDay->getDay()->format('d:m:y'),
+                'day' => $this->workedDay->getDay()->format('d:m:y'),
             ],
         ];
     }

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Infrastructure\Infrastructure\Rabbit;
-
 
 use App\Module\Ecommerce\Event\ProductSaleEvent;
 use App\Module\Employee\Domain\Event\EmployeeWasWorkedDayEvent;
@@ -17,7 +15,7 @@ final class EventsRabbitConfig
     public function __construct()
     {
         $this->events = [
-            ProductSaleEvent::class          => 'employee.sale.item',
+            ProductSaleEvent::class => 'employee.sale.item',
             EmployeeWasWorkedDayEvent::class => 'employee.worked.day',
         ];
     }

@@ -13,11 +13,11 @@ final class EmployeeControllerTest extends UITestCase
     public function testItCreateEmployee(): void
     {
         $this->client->request('put', $this->router->generate('create_empployee'), [
-            'first_name'                   => 'test',
-            'last_name'                    => 'test',
-            'address'                      => 'test',
+            'first_name' => 'test',
+            'last_name' => 'test',
+            'address' => 'test',
             'remuneration_calculation_way' => 'hourly',
-            'salary'                       => 200.0,
+            'salary' => 200.0,
         ]);
         $response = $this->client->getResponse();
 
@@ -33,10 +33,13 @@ final class EmployeeControllerTest extends UITestCase
         /** @var Employee $employee */
         $employee = $this->entityManager->getRepository(Employee::class)->findOneBy([]);
 
-        $this->client->request('put',
-            $this->router->generate('empployee_worked_day', ['employeeId' => $employee->getId()->toString()]), [
+        $this->client->request(
+            'put',
+            $this->router->generate('empployee_worked_day', ['employeeId' => $employee->getId()->toString()]),
+            [
                 'hours_amount' => 10,
-            ]);
+            ]
+        );
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
@@ -49,10 +52,13 @@ final class EmployeeControllerTest extends UITestCase
         /** @var Employee $employee */
         $employee = $this->entityManager->getRepository(Employee::class)->findOneBy([]);
 
-        $this->client->request('put',
-            $this->router->generate('empployee_worked_day', ['employeeId' => $employee->getId()->toString()]), [
+        $this->client->request(
+            'put',
+            $this->router->generate('empployee_worked_day', ['employeeId' => $employee->getId()->toString()]),
+            [
                 'hours_amount' => 'test',
-            ]);
+            ]
+        );
         $response = $this->client->getResponse();
         $this->assertSame(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
